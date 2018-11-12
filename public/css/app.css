@@ -9929,7 +9929,7 @@ body,
 .nav-sidebar > .nav-item .nav-icon {
   text-align: center;
   width: 1.6rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-right: .2rem;
 }
 
@@ -9945,6 +9945,7 @@ body,
 
 .nav-sidebar .nav-treeview > .nav-item > .nav-link > .nav-icon {
   width: 1.6rem;
+  font-size: .75rem;
 }
 
 .nav-sidebar .nav-header {
@@ -11423,8 +11424,8 @@ body,
 .open:not(.dropup) > .animated-dropdown-menu {
   -webkit-backface-visibility: visible !important;
           backface-visibility: visible !important;
-  -webkit-animation: flipInX 0.7s both;
-          animation: flipInX 0.7s both;
+  -webkit-animation: flipInX 0.5s both;
+          animation: flipInX 0.5s both;
 }
 
 @keyframes flipInX {
@@ -29924,5 +29925,14 @@ readers do not read off random characters that represent icons */
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.router-link-exact-active.router-link-active {
+  color: #ffffff !important;
+  background-color: #007bff !important;
+}
+
+.nav-sidebar .nav-treeview {
+  padding-left: .4rem;
 }
 

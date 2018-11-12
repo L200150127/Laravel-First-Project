@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
                 </h3>
                 <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Agok</p>
               </div>
             </div>
             {{-- Message End --}}
@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       {{-- Sidebar user panel (optional) --}}
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('img/user_admin.svg') }}" class="img-circle elevation-2" alt="Gambar USer Admin">
+          <img src="{{ asset('img/user_admin.svg') }}" class="img-circle elevation-2" alt="Gambar User Admin">
         </div>
         <div class="info">
         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           {{-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library --}}
           <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link active">
+            <router-link to="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
@@ -188,21 +188,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
+                <router-link to="#" class="nav-link">
+                  <i class="fas fa-pencil-alt nav-icon"></i>
                   <p>Buat Artikel</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Edit Artikel</p>
-                </a>
+                </router-link>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class=" nav-icon fas fa-images"></i>
               <p>
                 Galeri Foto
@@ -211,7 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class=" nav-icon fas fa-clipboard-list"></i>
               <p>
                 Agenda
@@ -219,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class=" nav-icon fas fa-chalkboard-teacher"></i>
               <p>
                 Data Guru
@@ -227,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class=" nav-icon fas fa-book-reader"></i>
               <p>
                 Data Siswa
@@ -235,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class=" nav-icon fas fa-archive"></i>
               <p>
                 File Manajer
@@ -277,7 +271,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item">Dashboard</li>
             </ol>
           </div>{{-- /.col --}}
         </div>{{-- /.row --}}

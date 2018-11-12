@@ -4,9 +4,8 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">Profile Component</div>
-
                     <div class="card-body">
-                        Ini Berisi Komponen Profile
+                        Ini Komponen Profile
                     </div>
                 </div>
             </div>

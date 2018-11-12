@@ -20,12 +20,13 @@ let routes = [
     },
     {
         path: '/profile',
-        component: require('./components/ExampleComponent.vue')
+        component: require('./components/Profile.vue')
     }
 ]
 
 // Register The Router
 const router = new VueRouter({
+    mode: 'history',
     routes // short for `routes: routes`
 })
 
@@ -37,7 +38,7 @@ const router = new VueRouter({
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 
