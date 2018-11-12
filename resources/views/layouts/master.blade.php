@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   {{-- Navbar --}}
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   {{-- Main Sidebar Container --}}
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     {{-- Brand Logo --}}
-    <a href="index3.html" class="brand-link">
+    <a href="/home" class="brand-link">
     <img src="{{ asset('img/admin.svg') }}" alt="Logo Situs" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">StartUp.</span><span class="brand-text font-weight-light text-primary">Inc</span>
@@ -161,25 +161,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
           {{-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library --}}
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <router-link to="/dashboard" class="nav-link active">
+              <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
                 {{-- <span class="right badge badge-danger">New</span> --}}
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 User
                 {{-- <span class="right badge badge-danger">New</span> --}}
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>
                 Artikel
@@ -188,18 +188,67 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Active Page</p>
+                  <p>Buat Artikel</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Inactive Page</p>
+                  <p>Edit Artikel</p>
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class=" nav-icon fas fa-images"></i>
+              <p>
+                Galeri Foto
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class=" nav-icon fas fa-clipboard-list"></i>
+              <p>
+                Agenda
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class=" nav-icon fas fa-chalkboard-teacher"></i>
+              <p>
+                Data Guru
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class=" nav-icon fas fa-book-reader"></i>
+              <p>
+                Data Siswa
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class=" nav-icon fas fa-archive"></i>
+              <p>
+                File Manajer
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class=" nav-icon fas fa-user"></i>
+              <p>
+                Profil
+              </p>
+            </router-link>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -239,64 +288,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{-- Main content --}}
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>{{-- /.card --}}
-          </div>
-          {{-- /.col-md-6 --}}
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          {{-- /.col-md-6 --}}
-        </div>
-        {{-- /.row --}}
+        {{-- route outlet --}}
+        {{-- component matched by the route will render here --}}
+        <router-view></router-view>
       </div>{{-- /.container-fluid --}}
     </div>
     {{-- /.content --}}
@@ -318,6 +312,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 {{-- REQUIRED SCRIPTS --}}
 
-<script src="{{ asset('js/app.js') }}" type="text/javascript"></script> 
+{{-- Compiled Script --}}
+<script src="{{ asset('js/app.js') }}"></script> 
 </body>
 </html>
