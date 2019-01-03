@@ -1,31 +1,198 @@
 
-// Fonts
+// Fonts General
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+// Font Jumbotron 
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash');
+// Font Footer
+@import url('https://fonts.googleapis.com/css?family=Cookie');
+// Font Judul
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Acme');
+@import url('https://fonts.googleapis.com/css?family=Averia+Serif+Libre');
+@import url('https://fonts.googleapis.com/css?family=Asul');
 
 // Variables
 @import 'variables';
-$fa-font-path: "../webfonts";
+
 
 // Bootstrap
+@import '~admin-lte/build/scss/AdminLTE';
 @import '~bootstrap/scss/bootstrap';
-@import '~admin-lte/dist/css/adminlte.css';
 
 // FontAwesome Icon
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
-@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
 
-.navbar-laravel {
+@import "~animate.css/animate.css";
+
+@include media-breakpoint-up(sm) {
+  div.input-group.input-group-sm {
+    max-width: 200px !important;
+  }
+}
+@include media-breakpoint-up(md) {
+  div.input-group.input-group-sm {
+    max-width: 300px !important;
+  }
+}
+@include media-breakpoint-up(lg) {
+  div.input-group.input-group-sm {
+    max-width: 400px !important;
+  }
+}
+@include media-breakpoint-up(xl) {
+  div.input-group.input-group-sm {
+    max-width: 600px !important;
+  }
+}
+
+.table-fixed {
+  table-layout: fixed;
+}
+
+@include media-breakpoint-down(sm) {
+  .text-responsive {
+    display:none;
+  }
+}
+@include media-breakpoint-down(md) {
+  .text-responsive-md {
+    display:none;
+  }
+}
+@include media-breakpoint-down(lg) {
+  .text-responsive-lg {
+    display:none;
+  }
+}
+@include media-breakpoint-between(sm, lg) {
+  .text-responsive-jlg {
+    display:none;
+  }
+}
+
+body { 
+  padding-right: 0 !important ;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+// Padding pada li menu sidebar yang mempunyai child
+// .nav-sidebar .nav-treeview {
+//   padding-left: .4rem;
+// }
+// ukuran font p pada li navaigasi
+.nav-item .nav-link p {
+  font-size: 0.8rem;
+}
+// kelas aktif pada vue router yang menunjukan route yang aktif sekarang
+.nav-link.router-link-exact-active {
+  background-color: $primary !important;
+}
+// gambar brand yang dipojok kiri atas pada admin page
+.brand-link .brand-image {
+  -webkit-filter: drop-shadow(0px 0px 4px $white);
+  filter: drop-shadow(0px 0px 4px $white);
+}
+// filter pada gambar user panel dibawah gambar brand
+.user-panel .image img {
+  -webkit-filter: drop-shadow(0px 0px 1px $primary);
+  filter: drop-shadow(0px 0px 1px $primary);
+  // border-radius: 50%;
+}
+// dropdown menu pada menu admin di pojok kanan atas
+.dropdown-menu.dropdown-menu-right {
+  margin-top: .8rem;
+}
+// list item menu pada dropdown menu admin
+a.dropdown-item.black {
+  color: $dark !important;
+}
+
+.main-sidebar > .brand-link {
+  padding: .87rem 0.5rem;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+/** Konfigurasi kustom style vue full calendar */
+.table-bordered > .fc-head { 
+  background-color: $primary; 
+  color: $white;
+}
+.table-bordered > .fc-body { background-color: $light; }
+.fc-view.fc-basic-view { border: 1px solid $primary; }
+/*Mengubah Efek drop-shadow pada input control native bootstrap 4*/
+.form-control:focus {
+  color: #495057;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  border-color: $primary;
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(255, 120, 0, 0.2);
 }
-.router-link-exact-active.router-link-active {
-  color: #ffffff !important;
-  background-color: #007bff !important;
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 0.1rem rgba(220, 53, 69, 0.25);
 }
-.nav-sidebar .nav-treeview {
-  padding-left: .4rem;
+.page-item.pagination-page-nav.active .page-link:focus {
+  box-shadow: 0 0 0 0.1rem rgba(255, 120, 0, 0.2);
 }
+/*Menghilangkan efek drop-shadow native bootstrap 4 pada button*/
+.btn:focus, .btn:active {
+   outline: none !important;
+   box-shadow: none !important;
+}
+
+/*Mengubah form-control menjadi tidak lengkung  */
+form#form-kategori > .input-group > .form-control,
+form#form-kategori > .input-group  .btn.btn-success {
+  border-radius: 0;
+}
+
+ul.list-group > .list-group-item {
+  padding-top: .4rem !important;
+  padding-bottom: .4rem !important;
+  padding-left: .8rem !important;
+}
+
+ul.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+ 
+
+.card-tools {
+  top: 12px !important;
+}
+
+.card-tools .btn-success {
+  -webkit-filter: drop-shadow(0px 0px 4px $white);
+  filter: drop-shadow(0px 0px 4px $white);
+}
+// div.sidebar .nav-item .nav-link {
+//   padding: .5rem .3rem .4rem .3rem;
+// }
+
+i.right {
+  right: 10px !important;
+}
+
+.nav-treeview .nav-item .nav-link i,
+.nav-treeview .nav-item .nav-link p,
+.nav-item .nav-link .nav-icon {
+  font-size: .8rem !important;
+}
+
+textarea#bio,
+textarea#deskripsi, { 
+  resize: none;
+  max-height: 68px; 
+}
+
 .text-blue {
   color: $blue;
 }
@@ -76,4 +243,114 @@ $fa-font-path: "../webfonts";
 }
 .text-white {
     color: $white;
+}
+.card-primary.card-outline {
+  border-top-color: $primary;
+}
+.nav-link.router-link-exact-active.active p {
+  color: $white;
+}
+.main-header.navbar .navbar-nav .nav-item:hover .nav-link:not(.active) {
+  color: #f4f6f9 !important;
+}
+
+.small-box .inner {
+  color: whitesmoke !important;
+}
+
+.small-box .icon ~ .small-box-footer {
+  color: whitesmoke !important;
+}
+
+.swal2-container.swal2-center.swal2-fade.swal2-shown,
+#crudModal.modal {
+  z-index: 1120;
+}
+
+.modal-backdrop.fade.show {
+  z-index: 1100;
+}
+
+.galeri-dashboard .card-title,
+.galeri-dashboard .card-text {
+  -webkit-filter: drop-shadow(0px 0px 2px $primary);
+  filter: drop-shadow(0px 0px 2px $primary);
+}
+
+// Mengatur tata letak sel tabel yang berisi foto
+table.table > tbody > tr > td.tabel-cell-wide {
+  vertical-align: middle;
+  text-align: center;
+}
+
+// Margin pada accordion menu bantuan
+div#menu-accordion-bantuan > .card {
+  margin-bottom: 0 !important;
+}
+
+img.my-center-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.custom-control-label {
+  font-weight: lighter !important;
+}
+
+// Memberi style ke list-group agenda
+.list-group > .list-group-item > p {
+  margin-bottom: 0;
+}
+.list-group > .list-group-item > p:nth-child(2) {
+  padding-left: .4rem;
+  border-left: 2px solid $primary;
+}
+// .list-group-item > p:nth-child(4) 
+
+
+
+
+/*Membuat Tombol Kembali dengan Animasi simbol '<<'*/
+.btn.btn-block.btn-primary {
+  transition: all 0.5s;
+}
+.btn.btn-block.btn-primary span {
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.btn.btn-block.btn-primary span:before {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: -2px;
+  left: -0.8em;
+  transition: 0.5s;
+} 
+.btn.btn-block.btn-primary:hover span {
+  padding-left:0.8em;
+}
+.btn.btn-block.btn-primary:hover span:before {
+  opacity: 1;
+  left: 0;
+}
+
+.animated.fadeInRight {
+  animation-delay: .9s;
+}
+
+.modal.fade{
+  opacity:1;
+}
+.modal.fade .modal-dialog {
+   -webkit-transform: translate(0);
+   -moz-transform: translate(0);
+   transform: translate(0);
+   animation-duration: .6s;
+}
+
+.swal2-container {
+  z-index: 1200 !important;
 }

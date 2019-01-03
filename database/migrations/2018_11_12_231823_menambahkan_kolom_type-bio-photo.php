@@ -6,6 +6,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class MenambahkanKolomTypeBioPhoto extends Migration
 {
+    protected $type = 'user';
+    protected  $photo = 'profile.svg';
     /**
      * Run the migrations.
      *
@@ -13,10 +15,11 @@ class MenambahkanKolomTypeBioPhoto extends Migration
      */
     public function up()
     {
+        
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type')->default('user')->after('password');
+            $table->string('type')->default($this->type)->after('password');
             $table->mediumText('bio')->nullable()->after('type');
-            $table->string('photo')->default('profile.svg')->after('bio');
+            $table->string('photo')->default($this->photo)->after('bio');
         });
     }
 

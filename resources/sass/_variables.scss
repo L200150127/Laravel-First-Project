@@ -1,3 +1,6 @@
+// FontAwesome font-path
+// $fa-font-path: "../webfonts";
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 // Body
 $body-bg: #f8fafc;
@@ -19,7 +22,7 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
-$primary: #007bff;
+$primary: #ef7800;
 $secondary: #6c757d;
 $success: #28a745;
 $danger: #dc3545;
@@ -27,3 +30,8 @@ $warning: #ffc107;
 $info: #17a2b8;
 $light: #f8f9fa;
 $white: #ffffff;
+
+$custom-file-text: (
+  en: "Browse",
+  id: "Cari"
+);

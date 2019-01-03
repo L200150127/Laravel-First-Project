@@ -1,0 +1,79 @@
+#artikel-isi .div-img {
+  text-align:center;
+  width:100%;
+}
+
+#artikel-isi img {
+  width:100%;
+  max-height:300px;
+}
+
+#artikel-isi .container.artikel-isi-container {
+  margin-top:20px;
+  padding:20px 20px 100px 20px;
+  background-color:#f8f8f8;
+  color:#35373a;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+#artikel-isi {
+  font-family:sans-serif;
+}
+
+#artikel-isi .div-col-kanan {
+  font-family:Asul, sans-serif;
+  padding:15px 25px;
+  background-color:white;
+  border-radius:5px;
+  margin-bottom:20px;
+}
+
+#artikel-isi .div-col-kiri {
+  padding:15px 15px;
+  background-color:white;
+  border-radius:5px;
+}
+
+#artikel-isi .head {
+  border-left:4px solid black;
+}
+
+#artikel-isi span {
+  float:right;
+}
+
+#artikel-isi .p-kategori {
+  border-bottom:1px solid silver;
+  padding-bottom:10px;
+}
+
+#artikel-isi hr {
+  background-color:#000000;
+  margin-bottom:30px;
+}
+
+#artikel-isi .h4, h4 {
+  height:50px;
+  overflow:hidden;
+  width:140px;
+}
+
+@media (max-width: 768px) {
+  #artikel-isi .h4, h4 {
+    height:50px;
+    width:160px;
+  }
+}
+
+@media (max-width: 576px) {
+  #artikel-isi .h4, h4 {
+    height:50px;
+    width:100%;
+  }
+}
+
+#artikel-isi .row.row-posting {
+  margin-bottom:10px;
+}
+

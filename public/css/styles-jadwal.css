@@ -1,0 +1,84 @@
+#tabel-data .container.tabel-container{
+  margin-top: 20px;
+  padding: 30px 30px 100px 30px;
+  background-color: #fff;
+  color: #35373a;
+  border-radius: 20px;
+  box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+#tabel-data .h1-judul {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+    margin-bottom: 50px;
+}
+#tabel-data .tabel-container p.page-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+    color: #888;
+    font-size: 18px;
+}
+
+
+img {
+  width:100%;
+}
+
+#foto {
+  text-align:center;
+}
+
+.body-img {
+  margin:0 auto;
+  width:45px;
+}
+
+#posisi-col {
+}
+
+#tabel-font {
+  font-family:'Open Sans', sans-serif;
+  margin-top:10px;
+}
+
+#pager {
+  margin-top:20px;
+}
+
+thead {
+  box-shadow:0 2px 5px rgb(210,210,210);
+  background-color:rgb(250,255,0);
+}
+
+#unduh-center {
+  text-align:center;
+}
+
+#text-walikelas {
+  font-family:sans-serif;
+  float:right;
+}
+
+#posisi-col {
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+#scrollbar {
+  margin-top:20px;
+  height:600px;
+  overflow:scroll;
+}
+
+.hari-jadwal {
+  padding:10px;
+}
+
+@media (max-width: 360px) {
+  #text-walikelas {
+    float:none;
+    text-align:center;
+  }
+}
+

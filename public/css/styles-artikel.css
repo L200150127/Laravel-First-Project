@@ -1,0 +1,81 @@
+#artikel-menu .container.artikel-menu-container {
+  margin-top:20px;
+  padding:30px 30px 100px 30px;
+  background-color:#fff;
+  color:#35373a;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+
+#artikel-menu .h1-judul {
+  text-align: center;
+  font-family: 'Droid Sans', sans-serif;
+  margin-bottom: 100px;
+  
+}
+#artikel-menu  p.page-description {
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+  color: #888;
+  font-size: 18px;
+}
+
+#thumb-kategori {
+  border-bottom-right-radius:30px;
+  border-bottom-left-radius:30px;
+  box-shadow:0 2px 9px gray;
+  margin:20px 1px;
+}
+
+
+#img-artikel {
+  border-top-right-radius:5px;
+  border-top-left-radius:5px;
+}
+
+
+
+#thumb-kategori .btn-artikel {
+  background-color:rgb(0, 153, 255);
+  margin:0px auto;
+  border-radius:10px;
+  color:white;
+  padding:10px;
+  box-shadow:none;
+  border: none;
+}
+
+
+#thumb-kategori .btn-artikel:hover {
+  color:white;
+  background-color:rgb(2, 113, 187);
+  border:none;
+}
+
+
+.div-btn {
+  width:100%;
+  text-align:center;
+}
+
+#artikel-menu .h2, h2 {
+  font-family:Acme, sans-serif;
+}
+
+.text-primary.card-title {
+  font-family:sans-serif;
+  overflow:hidden;
+  height:60px;
+}
+
+#artikel-menu .card-body {
+  font-family:sans-serif;
+}
+
+.text-justify.card-text {
+  overflow:hidden;
+  height:100px;
+}
+

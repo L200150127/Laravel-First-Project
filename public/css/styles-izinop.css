@@ -1,0 +1,20 @@
+.container.izin-container {
+  margin-top:20px;
+  padding:60px 30px 100px 30px;
+  background-color:#ffffff;
+  color:#35373a;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+#izin-op .h1-judul {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+    margin-bottom: 50px;
+}
+
+@media (max-width: 576px) {
+  .container.izin-container {
+    padding:30px 30px 50px 30px;
+  }
+}
+

@@ -1,0 +1,79 @@
+#profil-sek .container.profil-container {
+  margin-top:20px;
+  padding:30px 30px 100px 30px;
+  background-color:#fff;
+  color:#35373a;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+#profil-sek .h1-judul {
+  margin-top: 20px;
+  text-align:center;
+  font-family:'Droid Sans', sans-serif;
+  margin-bottom:100px;
+}
+
+#row-svmt {
+  font-family:sans-serif;
+}
+
+#profil-sek .sejarah {
+  color:rgb(0,178,255);
+  padding:5px;
+  border-left:2px solid rgb(255,77,0);
+  margin:0 0 20px 0;
+}
+
+#profil-sek .isi-sejarah img {
+  width:50%;
+  border-radius:10px;
+  margin:0 10px;
+}
+
+#profil-sek p {
+  margin:10px 10px;
+}
+
+.div-tabparagraf {
+  border:1px solid silver;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color:#00b2ff;
+  border-right:none;
+  border-left:none;
+  border-top:none;
+  border-bottom:2px solid rgb(255,0,0);
+  border-radius:0px;
+}
+
+.nav-tabs {
+  border-bottom:none;
+}
+
+.nav-tabs .nav-link {
+  border-radius:0px;
+}
+
+.nav-link:hover {
+  color:#ff0000;
+ 
+}
+
+.nav-link {
+  color:#ff7a00;
+  text-decoration:none;
+  background-color:transparent;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+
+#profil-sek .h2, h2 {
+  font-family:Acme, sans-serif;
+}
+

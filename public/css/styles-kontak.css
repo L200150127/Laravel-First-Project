@@ -1,0 +1,40 @@
+#body-kontak .container.kontak-container {
+    margin-top: 20px;
+    padding: 0 30px 100px 30px;
+    background-color: #fff;
+    color: #35373a;
+    border-radius: 20px;
+    box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+#body-kontak .container-fluid .h1-judul {
+    text-align: center;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
+    margin-bottom: 70px;
+}
+#body-kontak .container-fluid {
+    padding: 40px 20px;
+    
+
+}
+#body-kontak .col-sm-6 .col-md-12 .col-lg-6 p, .e-mail{
+  word-wrap: break-word;
+  padding: 0;
+}
+#contactForm .h4 {
+  font-weight:400;
+  padding:5px 0;
+  border-bottom:1px solid silver;
+}
+
+.required-input {
+  color:maroon;
+}
+
+
+#map {
+  margin-bottom:20px;
+}
+
+

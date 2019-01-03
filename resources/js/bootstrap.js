@@ -1,5 +1,18 @@
 
+// Impor axios library
+import axios from 'axios';
+// Impor Vue
+import Vue from 'vue';
+
+
+// membuat sekaligus menugaskan window._ diisi library lodash
 window._ = require('lodash');
+// membuat sekaligus menugaskan window.Vue direferensikan ke Vue
+window.Vue = Vue;
+// membuat sekaligus menugaskan window.axios direferensikan ke axios
+window.axios = axios;
+
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -8,11 +21,11 @@ window._ = require('lodash');
  */
 
 try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+	window.Popper = require('popper.js').default;
+	window.$ = window.jQuery = require('jquery');
+	require('bootstrap');
+	require('admin-lte');
 
-    require('bootstrap');
-    require('admin-lte');
 } catch (e) {}
 
 /**
@@ -20,9 +33,6 @@ try {
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
-window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

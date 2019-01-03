@@ -1,0 +1,118 @@
+/*---Home.css--*/
+
+#bodyslide {
+  background-color:white;
+  border-radius:5px;
+  margin-top:20px;
+  box-shadow:0 8px 15px rgba(0, 0, 0, 0.7);
+  padding: 10px 10px;
+}
+#home .body-home .jdl{
+  font-family:Asul, sans-serif;
+  font-weight: bold;
+}
+
+
+#home .body-home{
+  background-color:white;
+  border-radius:10px;
+  margin-top:15px;
+  padding: 30px 20px 100px 27px;
+  box-shadow:0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+img {
+  max-width:100%;
+}
+
+#Profil-sekolah {
+  margin:20px -15px 0px -15px;
+}
+
+#Artikel {
+  margin:20px -15px 0 -15px;
+}
+
+#hr-hide {
+  display:none;
+}
+
+@media (max-width: 768px) {
+  #hr-hide {
+    display:block;
+  }
+}
+
+#galeri {
+  margin:20px -15px 0 -15px;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  margin:10px 0;
+  font-size:20px;
+}
+
+.fa.fa-th-large {
+  max-width:100%;
+  font-size:30px;
+  margin:10px auto 0 auto;
+  background-color:rgba(255,255,255,0.33);
+  color:rgba(33,37,41,0.42);
+}
+
+.fa.fa-image {
+  font-size:30px;
+  margin:8px auto 0 auto;
+  color:rgba(33,37,41,0.73);
+}
+
+.shape-head {
+  max-width:100%;
+  margin-top:15px;
+}
+
+.card-body {
+  background-color:#dbebff;
+  margin:0 10px 0 10px;
+}
+
+#heading-shape {
+  position:absolute;
+  width:100%;
+  margin:18px 0 0 0;
+  text-align:center;
+}
+
+#info-agenda {
+  background-color:#ffffff;
+  padding:10px;
+  color:rgb(245,0,0);
+  font-size:18px;
+  border:2px solid blue;
+}
+
+.card#card-agenda,
+.card#card-unduh-file {
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.file-unduh {
+  max-width:100%;
+}
+
+.text-center.h-text-statistik {
+  color:rgb(22,45,255);
+  margin-bottom:20px;
+}
+
+.fa.fa-star-o {
+  margin:auto;
+}
+
+#icon-star {
+  width:90%;
+  margin:20px 0px auto;
+  text-align:center;
+  color:rgb(255,90,86);
+}
+
