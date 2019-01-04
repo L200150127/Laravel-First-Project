@@ -4,7 +4,7 @@ export default [{
         name: 'home',
         component: require('./views/admin/Home.vue'),
         meta: {
-            title: 'Dashboard Admin',
+            title: 'Dashboard',
             metaTags: [{
                     name: 'description',
                     content: 'Halaman Dashboard Admin MIM Pucangan'

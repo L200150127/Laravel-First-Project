@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\User as UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
-use Image;
-
 use App\User;
 
 class UserController extends Controller
@@ -47,13 +46,21 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $this->authorize('isAdmin');
-        // Menggabungkan array data DanaRequest dengan data id_user
+        // Ambil data yang sudah divalidasi
         $validated = $request->validated();
         // Buat Objek Eloquent Model
         $user = new User;
-        // Mass Assignment Save Data Ke Database
-        if ($user->fill($validated)->save()) {
-            // Kembalikan Resource dalam bentuk API Resorces
+        // Mass Assignment data request ke dalam model
+        $user->fill($validated);
+        // Jika ada file dalam request maka lakukan proses upload
+        // dengan menggunakan fungsi uploadFile
+        if ($request->has('photo')) {
+            $uploadFoto = $this->uploadFile($request);
+            $user->photo = $uploadFoto;
+        }
+        // Jika berhasil menyimpan ke DB, kembalikan Resource 
+        // dalam bentuk API Resorces
+        if ($user->save()) {
             return new UserResource($user);
         }
     }
@@ -67,15 +74,38 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $this->authorize('isAdmin');
+        // Validasi terhadap query
+        $this->validate($request, ['q' => 'nullable|string|max:50']);
+
         if ($search = $request->q) {
-            $users = User::where(function($query) use ($search) {
+            $user = User::where(function($query) use ($search) {
                 $query->where('name', 'LIKE', "%$search%")
                 ->orWhere('email', 'LIKE', "%$search%");
             })->paginate(10);
-            return new UserCollection($users);
+            return new UserCollection($user);
         } else {
-            $users = User::latest()->paginate(10);
-            return new UserCollection($users);
+            return $this->index();
+        }
+    }
+
+    /**
+     * Display a listing of sorted resource.
+     * @param  Illuminate\Http\Request $request
+     * @return \App\Http\Resources
+     */
+    public function orderBy(Request $request)
+    {
+        // Validasi terhadap query
+        $this->validate($request, [
+            'kolom' => 'required|string|max:50',
+            'mode' => 'required|string|in:asc,desc'
+        ]);
+        // Melakukan Pengurutan berdasarkan Kolom dan Mode
+        if ($request->kolom) {
+            return new UserCollection(User::orderBy($request->kolom, 
+                $request->mode)->paginate(10));
+        } else {
+            return $this->index();
         }
     }
 
@@ -91,13 +121,23 @@ class UserController extends Controller
         $this->authorize('isAdmin');
         // Retrieve the validated input data...
         $validated = $request->validated();
-        // Mass Assignment Update Data
-        if ($user->update($validated)) {
-            // Tampilkan pesan flash
-            // $request->session()->flash('success', 'Berhasil mengupdate user.');
-            // Redirect dengan pesan flash
-            // return redirect()->with('success', 'Berhasil Membuat user.');
-            // Kembalikan Resource dalam bentuk API Resorces
+
+        if ($request->has('photo')) {
+            $this->deleteFile($user);
+        }
+        // Mass Assignment data request ke dalam model
+        $user->fill($validated);
+        // Jika ada file dalam request maka lakukan proses upload
+        // dengan menggunakan fungsi deleteFile untuk menhapus file lama 
+        // terlebih dahulu kemudian menggunakan fungsi uploadFile untuk 
+        // melakukan proses uploadnya
+        if ($request->has('photo')) {
+            $uploadFoto = $this->uploadFile($request);
+            $user->photo = $uploadFoto;
+        }
+        // Jika berhasil menyimpan ke DB, kembalikan Resource 
+        // dalam bentuk API Resorces
+        if ($user->save()) {
             return new UserResource($user);
         }
     }
@@ -111,10 +151,60 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('isAdmin');
+        // Hapus File yang berafiliasi dengan data foto
+        $this->deleteFile($user);
         // Hapus User
         if ($user->delete()) {
             // Kembalikan Resource dalam bentuk API Resorces
             return new UserResource($user);
         }
+    }
+
+    /**
+     * Upload file yang ada di Request
+     * @param  UserRequest $request
+     * @return string
+     */
+    private function uploadFile(UserRequest $request) {
+        // Get File
+        $file = $request->file('photo');
+        // Get Filename with extension
+        $nameWithExt = $file->getClientOriginalName();
+        // Get Filename without extension
+        $name = snake_case(pathinfo($nameWithExt, PATHINFO_FILENAME));
+        // Get File extension
+        $ext = $file->extension();
+        // Jika ada foto dalam request dan merupakan valid
+        // Maka lakukan proses upload
+        if ($file->isValid()) {
+            // Nama foto yang perlu disimpan dalam database
+            // adalah kombinasi nama foto asli dan timestamp
+            $fotoNameStore =  $name . '_' . time() . '.' . $ext;
+            // Upload and Save foto to folder public/foto
+            $path = Storage::putFileAs('public/foto/user', $file, 
+                $fotoNameStore);
+            // kembalikan nama foto beserta ekstensinya
+            return $fotoNameStore;
+        }
+        // kembalikan false jika tidak ada foto dalam request atau jika proses 
+        // upload gagal
+        return false;
+    }
+
+    /**
+     * Hapus foto yang berafiliasi dengan data DB
+     * @param  User $foto
+     * @return boolean
+     */
+    private function deleteFile(User $user)
+    {
+        // Cek Apakah foto ada
+        $exist = Storage::exists('public/foto/user/' . $user->photo);  
+        if (isset($user->photo) && $exist) {
+            if (Storage::delete('public/foto/user/' . $user->photo)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

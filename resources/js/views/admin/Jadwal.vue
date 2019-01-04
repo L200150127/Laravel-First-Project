@@ -20,32 +20,32 @@
 
           <!-- Tabel -->
           <div class="card-body table-responsive p-0">
-            <table class="table">
+            <table class="table table-sm table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" class="text-primary" style="width: 60px">
+                  <th scope="col" class="text-primary text-center" style="width: 60px">
                   No</th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 0)"
                     href="javascript:void(0)">Kelas 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 1)"
                     href="javascript:void(0)">Mata Pelajaran 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 2)"
                     href="javascript:void(0)">Hari 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 3)"
                     href="javascript:void(0)">Jam Mulai 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 4)"
                     href="javascript:void(0)">Jam Selesai 
                     </a>
@@ -56,13 +56,13 @@
               </thead>
               <tbody>
                 <tr v-for="(dt, index) in laravelData.data">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ dt.kelas.nama | capitalize }}</td>
-                  <td>{{ dt.mapel.nama | capitalize }}</td>
-                  <td>{{ dt.hari | capitalize }}</td>
-                  <td>{{ dt.jam_mulai }}</td>
-                  <td>{{ dt.jam_selesai }}</td>
-                  <td>
+                  <td class="tabel-cell-wide text-center">{{ index + 1 }}</td>
+                  <td class="tabel-cell-wide">{{ dt.kelas.nama | capitalize }}</td>
+                  <td class="tabel-cell-wide">{{ dt.mapel.nama | capitalize }}</td>
+                  <td class="tabel-cell-wide">{{ dt.hari | capitalize }}</td>
+                  <td class="tabel-cell-wide text-center">{{ dt.jam_mulai }}</td>
+                  <td class="tabel-cell-wide text-center">{{ dt.jam_selesai }}</td>
+                  <td class="tabel-cell-wide text-center">
                     <!-- Button Group Aksi -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
                       <!-- Tombol Edit -->
@@ -83,7 +83,7 @@
           </div><!-- /.card-body -->
           
           <div class="card-footer">
-            <pagination :data="laravelData" 
+            <pagination :data="laravelData" v-if="laravelData.data"
             @pagination-change-page="getResults" :show-disabled="true" 
             :limit="5">
               <span slot="prev-nav"><i class="fas fa-arrow-circle-left"></i></span>

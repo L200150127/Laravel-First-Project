@@ -41,7 +41,7 @@ class MapelController extends Controller
      */
     public function getListMapel()
     {
-        $this->authorize('isAdmin');
+        // $this->authorize('isAdmin');
         // Ambil semua data dalam DB
         $mapel = Mapel::select('id', 'nama')->get();
         // Kembalikan ke user dalam bentuk Collection Resource

@@ -14,15 +14,13 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image pt-1">
         @if (!empty(Auth::user()->photo))
-          <img src="{{ asset(Auth::user()->photo) }}" alt="Gambar User Admin">
+          <img src="/storage/foto/user/{{ Auth::user()->photo }}" alt="Gambar User Admin">
         @else
-          <img src="{{ asset('svg/user.svg') }}" alt="Gambar User Admin">
+          <img src="/storage/default/svg/user.svg" alt="Gambar User Admin">
         @endif
       </div>
       <div class="info">
-        <router-link to="/profil" class="d-block">
-            {{ ucwords(Auth::user()->name) }}
-        </router-link>
+            <a href="#">{{ ucwords(Auth::user()->name) }}</a>
       </div>
     </div>
 
@@ -115,7 +113,8 @@
           </ul>
         </li>
         @endcan
-
+        
+        @can('isAdmin')
         <!-- Mata Pelajaran menu -->
         <li class="nav-item has-treeview">
           <router-link :to="{ name:'kelas' }" class="nav-link">
@@ -141,7 +140,16 @@
             </li>
           </ul>
         </li>
-
+        @endcan
+        
+        @can('isGuru')
+        <li class="nav-item">
+          <router-link :to="{ name:'materi' }" class="nav-link">
+            <i class="fas fa-upload nav-icon" style="color: skyblue"></i>
+            <p>Materi Pendukung</p>
+          </router-link>
+        </li>
+        @endcan
         <!-- Prestasi menu -->
         <li class="nav-item">
           <router-link :to="{ name:'prestasi' }" class="nav-link">

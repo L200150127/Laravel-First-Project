@@ -21,13 +21,13 @@
 
           <!-- Tabel Kelas -->
           <div class="card-body table-responsive-md p-0">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" class="text-primary" style="width: 60px">
+                  <th scope="col" class="text-primary text-center" style="width: 60px">
                   No</th>
-                  <th scope="col" class="text-primary" style="width: auto">Nama Kelas</th>
-                  <th scope="col" class="text-primary" style="width: 50%">
+                  <th scope="col" class="text-primary text-center" style="width: auto">Nama Kelas</th>
+                  <th scope="col" class="text-primary text-center" style="width: 50%">
                   Wali Kelas</th>
                   <th scope="col" class="text-center text-primary" 
                   style="width: 120px">Aksi</th>
@@ -35,10 +35,10 @@
               </thead>
               <tbody>
                 <tr v-for="(dt, index) in kelasData.data">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ dt.nama }}</td>
-                  <td>{{ dt.guru ? dt.guru.nama : '' }}</td>
-                  <td>
+                  <td class="tabel-cell-wide text-center">{{ index + 1 }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nama }}</td>
+                  <td class="tabel-cell-wide">{{ dt.guru ? dt.guru.nama : '' }}</td>
+                  <td class="tabel-cell-wide text-center">
                     <!-- Tombol Pilihan -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
                       <a href="javascript:void(0)" title="Edit"
@@ -84,17 +84,17 @@
 
           <!-- Tabel -->
           <div class="card-body table-responsive-md p-0">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" class="text-primary" 
+                  <th scope="col" class="text-primary text-center" 
                   style="width: 60px">No</th>
-                  <th scope="col" style="width: auto">
+                  <th scope="col" style="width: auto" class="text-center">
                     <a @click.prevent="orderBy(mapelData.links.order, 0)"
                     href="javascript:void(0)">Nama Mata Pelajaran
                     </a>
                   </th>
-                  <th scope="col" class="text-primary" style="width: 50%">
+                  <th scope="col" class="text-primary text-center" style="width: 50%">
                   Guru Pengampu</th>
                   <th scope="col" class="text-center text-primary" 
                   style="width: 120px">Aksi</th>
@@ -102,14 +102,14 @@
               </thead>
               <tbody>
                 <tr v-for="(dt, index) in mapelData.data">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ dt.nama }}</td>
-                  <td>
+                  <td class="tabel-cell-wide text-center">{{ index + 1 }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nama }}</td>
+                  <td class="tabel-cell-wide">
                       <p v-for="(guru, index) in dt.guru" class="p-0 m-0">
                         {{ guru.nama }}
                       </p>
                   </td>
-                  <td>
+                  <td class="tabel-cell-wide text-center">
                     <!-- Tombol Pilihan -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
                       <a href="javascript:void(0)" title="Edit"
@@ -129,7 +129,7 @@
             </table>
           </div><!-- /.card-body -->
           <div class="card-footer">
-            <pagination :data="mapelData" 
+            <pagination :data="mapelData" v-if="mapelData.data"
             @pagination-change-page="getResults" 
             :show-disabled="true" :limit="5">
               <span slot="prev-nav">

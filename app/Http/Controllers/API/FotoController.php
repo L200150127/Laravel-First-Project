@@ -99,13 +99,15 @@ class FotoController extends Controller
         // Retrieve the validated input data...
         $validated = $request->validated();
         // Mass Assignment data request ke dalam model
+        if ($request->has('foto')) {
+            $this->deleteFile($foto);
+        }
         $foto->fill($validated);
         // Jika ada file dalam request maka lakukan proses upload
         // dengan menggunakan fungsi deleteFile untuk menhapus file lama 
         // terlebih dahulu kemudian menggunakan fungsi uploadFile untuk 
         // melakukan proses uploadnya
         if ($request->has('foto')) {
-            $this->deleteFile($foto);
             $uploadFoto = $this->uploadFile($request);
             $foto->path = $uploadFoto[0];
             $foto->ukuran = $uploadFoto[1];

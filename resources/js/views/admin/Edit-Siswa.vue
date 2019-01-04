@@ -348,7 +348,6 @@ export default {
                                     type: 'success',
                                     title: `Data ${ apiSuffix } berhasil diupdate`
                                 });
-                                $('#crudModal').modal('hide');
                                 this.$Progress.finish();
                                 this.$nextTick(() => {
                                     this.clearForm();

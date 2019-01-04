@@ -193,6 +193,9 @@ class SiswaController extends Controller
         $this->authorize('isAdmin');
         // Retrieve the validated input data...
         $validated = $request->validated();
+        if ($request->has('foto')) {
+            $this->deleteFile($siswa);
+        }
         // Mass Assignment data request ke dalam model
         $siswa->fill($validated);
         // Jika ada file dalam request maka lakukan proses upload
@@ -200,7 +203,6 @@ class SiswaController extends Controller
         // terlebih dahulu kemudian menggunakan fungsi uploadFile untuk 
         // melakukan proses uploadnya
         if ($request->has('foto')) {
-            $this->deleteFile($siswa);
             $uploadFoto = $this->uploadFile($request);
             $siswa->foto = $uploadFoto;
         }
@@ -246,8 +248,6 @@ class SiswaController extends Controller
         // Jika ada foto dalam request dan merupakan valid
         // Maka lakukan proses upload
         if ($siswa->isValid()) {
-            // Ambil ukuran file
-            $size = $siswa->getClientSize();
             // Nama foto yang perlu disimpan dalam database
             // adalah kombinasi nama foto asli dan timestamp
             $fotoNameStore =  $name . '_' . time() . '.' . $ext;

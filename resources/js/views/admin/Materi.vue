@@ -20,22 +20,22 @@
 
           <!-- Tabel -->
           <div class="card-body table-responsive p-0">
-            <table class="table">
+            <table class="table table-sm table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" class="text-primary" style="width: 60px">
+                  <th scope="col" class="text-primary text-center" style="width: 60px">
                   No</th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 0)"
                     href="javascript:void(0)">Nama Materi 
                     </a>
                   </th>
-                  <th scope="col" style="min-width: 90px;">
+                  <th scope="col" class="text-center" style="min-width: 90px;">
                     <a @click.prevent="orderBy(laravelData.links.order, 1)"
                     href="javascript:void(0)">Kelas 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 2)"
                     href="javascript:void(0)">Mata Pelajaran 
                     </a>
@@ -46,11 +46,11 @@
               </thead>
               <tbody>
                 <tr v-for="(dt, index) in laravelData.data">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ dt.nama }}</td>
-                  <td>{{ dt.kelas? dt.kelas.nama : '' }}</td>
-                  <td>{{ dt.mapel? dt.mapel.nama : '' }}</td>
-                  <td>
+                  <td class="tabel-cell-wide text-center">{{ index + 1 }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nama }}</td>
+                  <td class="tabel-cell-wide">{{ dt.kelas? dt.kelas.nama : '' }}</td>
+                  <td class="tabel-cell-wide">{{ dt.mapel? dt.mapel.nama : '' }}</td>
+                  <td class="tabel-cell-wide text-center">
                     <!-- Button Group Aksi -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
                       <!-- Tombol Edit -->
@@ -75,7 +75,7 @@
           </div><!-- /.card-body -->
 
           <div class="card-footer">
-            <pagination :data="laravelData" 
+            <pagination :data="laravelData" v-if="laravelData.data"
             @pagination-change-page="getResults" :show-disabled="true" 
             :limit="5">
               <span slot="prev-nav"><i class="fas fa-arrow-circle-left"></i></span>

@@ -2,39 +2,64 @@
   <div class="container">
     <div class="row mt-2 justify-content-center">
         <div class="col-md-8 order-md-1 order-2">
+
+          <!-- Card Container Formulir tambah artikel -->
           <div class="card border border-primary">
+
             <div class="card-header bg-primary">
               <h3 class="card-title mb-0">Buat Artikel</h3>
-            </div>
+            </div><!-- /.card-header -->
+
             <div class="card-body">
               <!-- Form -->
-              <form @submit.prevent="editMode? updateUser():createUser()" 
-              @keydown="form.onKeydown($event)" enctype="multipart/form-data" 
-              id="form-artikel">
-                <!-- Input Nama User-->
+              <form @submit.prevent="performSubmit" id="form-artikel">
+
+                <!-- Input Judul Artikel -->
                 <div class="form-group">
                   <label for="judul">Judul Artikel</label>
-                  <input v-model.trim="form.name" type="text" name="judul" 
-                  id="judul" class="form-control" 
-                  placeholder="Masukan Judul Artikel" required
-                  :class="{ 'is-invalid': form.errors.has('name') }">
-                  <has-error :form="form" field="name"></has-error>
+                  <input v-model.trim="form.judul" type="text" name="judul" 
+                  id="judul" placeholder="Masukan Judul Artikel"
+                  :class="{'form-control': true, 'is-invalid': errors.has('judul')}" v-validate=
+                  "{ required: true, regex: /^[a-z\d\-\'\,\.\:\/\s]+$/i, 
+                  max: 255 }">
+                  <!-- Feedback Error -->
+                  <div v-show="errors.has('judul')" class="invalid-feedback">
+                    {{ errors.first('judul') }}
+                  </div><!-- /Feedback Error -->
                 </div>
 
-                <!-- Input Bio User-->
+                <!-- Input file Foto -->
                 <div class="form-group">
-                  <label for="isi">Judul Artikel</label>
-                  <textarea v-model.trim="form.bio" name="isi" id="isi" 
-                  class="form-control" placeholder="Masukan Isi Artikel"
-                  :class="{ 'is-invalid': form.errors.has('bio') }" 
-                  rows="10"></textarea>
-                  <has-error :form="form" field="bio"></has-error>
+                  <label for="gambar_cover">Sampul Artikel (Opsional)</label>
+                  <div class="custom-file">
+                    <input type="file" name="gambar_cover" id="gambar_cover" lang="id" :class="{'custom-file-input': true, 'is-invalid': errors.has('gambar_cover')}" v-validate=
+                    "{ image: true, size: 4096 }"
+                    @change="updateFile" data-vv-as="Sampul Artikel">
+                    <label class="custom-file-label" for="gambar_cover">
+                      {{ fileLabel }}
+                    </label>
+                    <!-- Feedback Error -->
+                    <div v-show="errors.has('gambar_cover')" 
+                    class="invalid-feedback">
+                      {{ errors.first('gambar_cover') }}
+                    </div><!-- /Feedback Error -->
+                  </div>
+                </div><!-- /Input file Foto -->
+                
+                <!-- Input Isi artikel -->
+                <div class="form-group">
+                  <label for="isi">Isi Artikel</label>
+                  <vue-editor v-model="form.isi" name="isi" 
+                  data-vv-as="Isi Artikel" placeholder="Masukan Isi Artikel" v-validate="'required'">
+                  </vue-editor>
                 </div>
+
 
                 <div class="row justify-content-between my-2">
                   <div class="col-sm-6 col-md-4 col-lg-3 order-sm-2">
-                    <button type="submit" class="btn btn-block btn-success">
-                      <span>Tambahkan</span>
+                    <button type="submit" class="btn btn-block btn-success"
+                    :disabled="errors.any()">
+                      <span>Simpan Perubahan</span>
                     </button>
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 order-sm-1 my-1 my-sm-0">
@@ -44,8 +69,8 @@
                     </router-link>
                   </div>
                 </div>
+
               </form>
-                  
             </div>
           </div>
         </div>
@@ -53,228 +78,170 @@
         <div class="col-md-4 order-md-2 order-1">
           <div class="card border border-primary">
             <div class="card-header bg-primary">
-              <h3 class="card-title mb-0">Informasi Artikel</h3>
+              <h3 class="card-title mb-0">Gambar Sampul</h3>
             </div>
             <div class="card-body">
-
-              <!-- Input Kategori Artikel -->
-              <div class="form-group">
-                <label for="kategori">Kategori Artikel</label>
-                <select name="kategori" v-model.trim="form.type" 
-                class="custom-select" id="kategori" form="form-artikel"
-                :class="{ 'is-invalid': form.errors.has('type') }" required="">
-                  <option value="" disabled="">Pilih Kategori</option>
-                  <option value="1">Umum</option>
-                  <option value="2">Pendidikan</option>
-                  <option value="3">Kegiatan</option>
-                  <option value="4">Berita</option>
-                  <option value="5">Prestasi</option>
-                </select>
-                <has-error :form="form" field="type"></has-error>
-              </div>
-
-              <!-- Input File Foto Artikel -->
-              <div class="form-group">
-                <label for="gambar-cover">Sampul Artikel (Opsional)</label>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input"
-                  name="gambar_cover" id="gambar-cover" lang="id" 
-                  @change="updateFoto" form="form-artikel">
-                  <label class="custom-file-label" for="gambar-cover">
-                    {{ photoLabel }}
-                  </label>
-                  <has-error :form="form" field="photo"></has-error>
-                </div>
-              </div>
-
-              <!-- Checkbox status artikel -->
-              <div class="form-group">
-                <div class="custom-control custom-checkbox text-center">
-                  <input type="checkbox" class="custom-control-input" 
-                  id="customCheck1" form="form-artikel">
-                  <label class="custom-control-label" for="customCheck1">
-                    Saya sedang membuat draft
-                  </label>
-                </div>
-              </div>
+              <img v-if="fotoPreview"
+              class="img-fluid img-thumbnail" 
+              :src="fotoPreview" 
+              alt="foto-artikel" width="300" 
+              style="object-fit:cover;transition:all 1s">
+              <img v-else
+              class="img-fluid img-thumbnail" 
+              src="/storage/default/images/cover_default.png" 
+              alt="foto-artikel" width="300" 
+              style="object-fit:cover;transition:all 1s">
             </div>
           </div>
         </div>
+
     </div>
   </div>
 </template>
 
 <script>
+import { VueEditor } from 'vue2-editor';
+
+
 export default {
+    components: {
+        VueEditor
+    },
     data() {
         return {
-            editMode: true,
-            kosong: false,
-            users: {},
-            form: new Form({
-                id: '',
-                name: '',
-                email: '',
-                password: '',
-                type: '',
-                bio: '',
-                photo: ''
-            }),
-            photoLabel: 'Pilih Gambar',
-            page: 'Manajemen User'
+            laravelData: {},
+            form       : {},
+            fotoPreview: '',
+            fileLabel  : 'Pilih File',
         }
     },
+    watch: {
+        // call again the method if the route changes
+        '$route': 'fetchData'
+    },
     methods: {
-        tambahDataModal() {
-            this.editMode = false;
-            this.photoLabel = 'Pilih Foto (Opsional)'
-            this.form.reset();
-            $('#crudModal').modal('show');
-        },
-        editDataModal(user) {
-            this.editMode = true;
-            this.form.reset();
-            if (user.photo) {
-                this.photoLabel = user.photo;
+        fetchData() {
+            if (this.$route.params.id) {
+                this.read('/api/artikel/' + this.$route.params.id);
             } else {
-                this.photoLabel = 'Pilih Foto (Opsional)';
+                this.read('/api/artikel');
             }
-            this.form.fill(user);
-            $('#crudModal').modal('show');
         },
-        createUser() {
+        read(urlApi) {
             this.$Progress.start();
-            // Submit form melualu PUT request
-            this.form.post('api/user').then(({ data }) => {
-                this.$emit('afterCrud');
-                $('#crudModal').modal('hide');
-                toast({
-                    type: 'success',
-                    title: 'User baru berhasil ditambahkan'
-                });
-                this.$Progress.finish();
-                this.form.reset();
-            }).catch((error) => {
-                this.$Progress.fail();
-                toast({
-                    type: 'error',
-                    title: 'User baru gagal ditambahkan'
-                });
-                console.log(error);
-            });
-        },
-        loadUser() {
-            if (this.$gate.isAdmin()) {
-                this.$Progress.start();
-                axios.get('api/user').then(({ data }) => {
-                    this.users = data;
-                    this.isKosong();
+            axios.get(urlApi)
+                .then(response => {
+                    this.laravelData = response.data;
+                    this.form = this.laravelData.data;
+                    if (this.form.gambar_cover) {
+                        this.fotoPreview = `/storage/foto/artikel/${this.form.gambar_cover}`;
+                        this.fileLabel   = this.form.gambar_cover;
+                    }
                     this.$Progress.finish();
-                }).catch((error) => {
+                })
+                .catch(err => {
                     this.$Progress.fail();
-                    console.log(error);
+                    console.log(err);
                 });
+        },
+        clearForm() {
+            this.form = {
+                id          : '',
+                judul       : '',
+                isi         : '',
+                gambar_cover: '',
+            };
+            this.fotoPreview = '';
+            this.fileLabel   ='Pilih File';
+            this.$validator.reset();
+        },
+        performSubmit() {
+            if (typeof this.form.gambar_cover != 'object' || this.form.gambar_cover == null) {
+                delete this.form.gambar_cover;
             }
-        },
-        updateUser(id) {
-            this.$Progress.start();
-            // Submit form melualu POST request
-            this.form.put('api/user/'+this.form.id).then(({ data }) => {
-                this.$emit('afterCrud');
-                $('#crudModal').modal('hide');
-                toast({
-                    type: 'success',
-                    title: 'Data user berhasil diupdate'
-                });
-                this.$Progress.finish();
-                this.form.reset();
-                this.photoLabel = 'Pilih Foto (Opsional)';
-            }).catch((error) => {
-                this.$Progress.fail();
-                toast({
-                    type: 'error',
-                    title: 'Data user gagal diupdate'
-                });
-                console.log(error);
-            });
-        },
-        updateFoto(e) {
-            let file = e.target.files[0];
-            this.photoLabel = file.name;
-            let reader = new FileReader();
-            if (file['size'] < 2111775) {
-                reader.onloadend = (file) => {
-                  this.form.photo = reader.result;
+            Object.keys(this.form).forEach( key => {
+                if (this.form[key] == null) {
+                    this.form[key] = '';
                 }
+            });
+            return this.update(this.laravelData.links.self);
+        },
+        updateFile(e) {
+            let file = e.target.files[0];
+            this.fileLabel = _.truncate( file.name, {
+                'length': 50,
+            });
+            let reader = new FileReader();
+            if (file['size'] < 4096000) {
+                reader.onloadend = (file) => {
+                  this.fotoPreview = reader.result;
+                }
+                this.form.gambar_cover = file;
                 reader.readAsDataURL(file);
+                
             } else {
                 swal({
                     type: 'error',
                     title: 'Ups...',
-                    text: 'Ukuran gambar terlalu besar, ukuran gambar harus dibawah 2MB',
+                    text: 'Ukuran file harus dibawah 4MB',
                 });
             }
         },
-        deleteUser(id, nama) {
-            swal({
-                title: 'Apakah anda yakin?',
-                text: 'Anda akan menghapus user yang bernama ' + 
-                       Vue.filter('capitalize')(nama),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#007bff',
-                cancelButtonColor: '#dc3545',
-                cancelButtonText: 'Batal',
-                confirmButtonText: 'Ya',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    // Jika ya, kirim request ke server
-                    this.form.delete('api/user/' + id)
-                    .then(() => {
-                        swal(
-                            'Berhasil!',
-                            'User berhasil dihapus.',
-                            'success'
-                        )
-                        this.$emit('afterCrud');
-                    }).catch(() => {
-                        swal(
-                            'Gagal',
-                            'Gagal menghapus user',
-                            'error'
-                        );
-                    });
-                }
-            })
-        },
-        isKosong() {
-            if (_.size(this.users) >= 1) {
-                return this.kosong = false;
+        getFormData(object, update=false) {
+            const formData = new FormData();
+            Object.keys(object).forEach( key => formData.append(key, object[key]));
+            if (update) {
+                formData.append('_method', 'PATCH');
             }
-            return this.kosong = true;
+            return formData;
+        },
+        update(urlApi) {
+            let apiSuffix = urlApi.split('/').last();
+            this.$validator.validateAll()
+                .then(() => { 
+
+                    if (!this.errors.any()) {
+                        let formData = this.getFormData(this.form, true);
+                        const config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                        }
+                        this.$Progress.start();
+                        axios.post(`${urlApi}/${this.form.id}`, formData, config)
+                            .then( response => {
+                                this.$emit('afterCrud');
+                                toast({
+                                    type: 'success',
+                                    title: `Data ${ apiSuffix } berhasil diupdate`
+                                });
+                                this.$Progress.finish();
+                                this.$nextTick(() => {
+                                    this.clearForm();
+                                })
+                                this.fileLabel = 'Pilih File';
+                            })
+                            .catch(err => {
+                                this.$Progress.fail();
+                                toast({
+                                    type: 'error',
+                                    title: `Data ${ apiSuffix } gagal diupdate`
+                                });
+                                console.log(err);
+                            });
+                    }
+                })
+                .catch( err => {
+                    console.log(err);
+                });
         },
     },
     created() {
-        Fire.$on('searching', () => {
-            let query = this.$parent.search;
-            if (!query) { return false }
-            this.$Progress.start();
-            axios.get('api/cari/user?q=' + query)
-            .then(( data ) => {
-              this.users = data.data;
-              this.$Progress.finish();
-            })
-            .catch(() => {
-                swal(
-                    'Gagal',
-                    'Gagal menghapus melakukan pencarian',
-                    'error'
-                );
-            });
-        });
-        this.loadUser();
-        this.$on('afterCrud', () => this.loadUser());
+        this.fetchData();
+        this.$on('afterCrud', () => this.$router.push({ name: 'artikel' }));
+    },
+    mounted() {
+      this.$Progress.finish();
     }
 };
 

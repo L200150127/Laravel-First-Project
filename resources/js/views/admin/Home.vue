@@ -2,12 +2,12 @@
   <div>
     
   
-  <div class="row">
-    <div class="col-lg-3 col-6">
+  <div class="row" v-if="laravelData">
+    <div class="col-lg-3 col-6" v-if="$gate.isAdmin()">
       <!-- small box -->
       <div class="small-box bg-warning text-light">
         <div class="inner">
-          <h3>150</h3>
+          <h3>{{ laravelData.jumlahUser }}</h3>
           <p>User</p>
         </div>
         <div class="icon">
@@ -19,11 +19,11 @@
       </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6" v-if="$gate.isAdmin()">
       <!-- small box -->
       <div class="small-box" style="background-color: turquoise">
         <div class="inner">
-          <h3>53</h3>
+          <h3>{{ laravelData.jumlahArtikel }}</h3>
           <p>Artikel</p>
         </div>
         <div class="icon">
@@ -35,11 +35,11 @@
       </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6" v-if="$gate.isAdmin()">
       <!-- small box -->
       <div class="small-box" style="background-color: navajowhite">
         <div class="inner">
-          <h3>44</h3>
+          <h3>{{ laravelData.jumlahGuru }}</h3>
           <p>Guru</p>
         </div>
         <div class="icon">
@@ -51,11 +51,11 @@
       </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6" v-if="$gate.isAdmin()">
       <!-- small box -->
       <div class="small-box" style="background-color: lightsalmon">
         <div class="inner">
-          <h3>65</h3>
+          <h3>{{ laravelData.jumlahSiswa }}</h3>
           <p>Siswa</p>
         </div>
         <div class="icon">
@@ -67,11 +67,11 @@
       </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6" v-if="$gate.isAdmin()">
       <!-- small box -->
       <div class="small-box" style="background-color: skyblue">
         <div class="inner">
-          <h3>150</h3>
+          <h3>{{ laravelData.jumlahKelas }}</h3>
           <p>Kelas</p>
         </div>
         <div class="icon">
@@ -87,7 +87,7 @@
       <!-- small box -->
       <div class="small-box" style="background-color: lightcoral">
         <div class="inner">
-          <h3>53</h3>
+          <h3>{{ laravelData.jumlahMateri }}</h3>
           <p>Materi Pendukung</p>
         </div>
         <div class="icon">
@@ -103,7 +103,7 @@
       <!-- small box -->
       <div class="small-box" style="background-color: gold">
         <div class="inner">
-          <h3>44</h3>
+          <h3>{{ laravelData.jumlahPrestasi }}</h3>
           <p>Prestasi</p>
         </div>
         <div class="icon">
@@ -115,11 +115,11 @@
       </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6" v-if="$gate.isAdmin()">
       <!-- small box -->
       <div class="small-box" style="background-color: mediumaquamarine">
         <div class="inner">
-          <h3>65</h3>
+          <h3>{{ laravelData.jumlahAlumni }}</h3>
           <p>Alumni</p>
         </div>
         <div class="icon">
@@ -134,7 +134,7 @@
   </div>
 
   <div class="row mt-3 mb-3">
-    <div class="col-md-4">
+    <div class="col-md-4" v-if="$gate.isAdmin()">
       <h3>
         Agenda
         <router-link :to="{ name:'agenda' }" 
@@ -146,12 +146,13 @@
       <hr>
       <div class="card border border-primary" style="height: 240px">
         <div class="card-header bg-primary">
-          Agenda Terbaru
+          Agenda Bulan Ini
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
+        <ul class="list-group list-group-flush" style="overflow: auto">
+          <li class="list-group-item" v-for="(dt, index) in laravelData.agendaBulanIni">
+            {{ dt.nama }} <br>
+            <small class="text-muted">{{ dt.tgl_mulai | date_id_short }}</small> 
+          </li>
         </ul>
       </div>
     </div>
@@ -166,54 +167,24 @@
       </h3>
       <hr>
       <div class="card-deck mb-3">
-        <div class="card galeri-dashboard" style="max-height: 240px" >
+        <div class="card galeri-dashboard" style="max-height: 240px" 
+        v-for="(dt, index) in laravelData.fotoTerbaru">
           <div style="overflow: hidden">
-            <a href="#">
-              <img src="/img/rails.jpg" alt="album_image" class="card-img rounded" width="250" height="240" style="object-fit: cover;">
+            <a :href="'/storage/foto/' + dt.path">
+              <img :src="'/storage/foto/' + dt.path" 
+              alt="foto-terbaru" class="card-img rounded" width="250" 
+              height="240" style="object-fit: cover;">
             </a>
           </div>
-          <div class="card-img-overlay">
+          <div class="card-img-overlay" >
             <small class="m-0">
-              <a href="#" class="card-text text-white">
-              Nama Acara Atau Kegiatan atau Nama Foto</a>
+              <a :href="'/storage/foto/' + dt.path" 
+              class="card-text text-white">
+              {{ dt.nama }}</a>
             </small>
             <hr class="m-0">
             <small class="card-text text-white">
-              Diunggah 12 jam yang lalu
-            </small>
-          </div>
-        </div>
-        <div class="card galeri-dashboard" style="max-height: 240px" >
-          <div style="overflow: hidden">
-            <a href="#">
-              <img src="/img/rails.jpg" alt="album_image" class="card-img rounded" width="250" height="240" style="object-fit: cover;">
-            </a>
-          </div>
-          <div class="card-img-overlay">
-            <small class="m-0">
-              <a href="#" class="card-text text-white">
-              Nama Acara Atau Kegiatan atau Nama Foto</a>
-            </small>
-            <hr class="m-0">
-            <small class="card-text text-white">
-              Diunggah 12 jam yang lalu
-            </small>
-          </div>
-        </div>
-        <div class="card galeri-dashboard" style="max-height: 240px" >
-          <div style="overflow: hidden">
-            <a href="#">
-              <img src="/img/rails.jpg" alt="album_image" class="card-img rounded" width="250" height="240" style="object-fit: cover;">
-            </a>
-          </div>
-          <div class="card-img-overlay">
-            <small class="m-0">
-              <a href="#" class="card-text text-white">
-              Nama Acara Atau Kegiatan atau Nama Foto</a>
-            </small>
-            <hr class="m-0">
-            <small class="card-text text-white">
-              Diunggah 12 jam yang lalu
+              {{ dt.created_at | date_id_short }}
             </small>
           </div>
         </div>
@@ -225,13 +196,30 @@
 </template>
 
 <script>
+import crudMixins from '../../mixins/crudMixins';
+
 export default {
     data() {
         return {
             jumlah: {},
             fotoTerbaru: {},
+            laravelData: {},
             events: {}
         }
+    },
+    watch: {
+        // call again the method if the route changes
+        '$route': 'fetchData'
+    },
+    methods: {
+        fetchData() {
+            this.read('api/home');
+        },
+    },
+    mixins: [ crudMixins ]
+    ,
+    created() {
+        this.read('api/home');
     }
 };
 

@@ -243,9 +243,6 @@ export default {
         }
     },
     methods: {
-        fetchData() {
-            this.read('api/siswa');
-        },
         clearForm() {
             this.form = {
                 id           : '',
@@ -315,7 +312,6 @@ export default {
                                     type: 'success',
                                     title: `${ Vue.filter('capitalize')(apiSuffix) } baru berhasil ditambahkan`
                                 });
-                                $('#crudModal').modal('hide');
                                 this.$Progress.finish();
                                 this.$nextTick(() => {
                                     this.clearForm();

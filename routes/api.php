@@ -31,20 +31,21 @@ Route::apiResources([
 Route::apiResource('kelas', 'API\KelasController')->parameters([
     'kelas' => 'kelas'
 ])->except(['show']);
+Route::get('home', 'API\DashboardController@index');
 
 // Membuat Semua Parsial API Route Resource yang dibutuhkan
 Route::apiResource('agenda', 'API\AgendaController')->except(['show']);
 Route::apiResource('dana', 'API\DanaController')->except(['show']);
 Route::apiResource('foto', 'API\FotoController')->except(['show']);
 Route::apiResource('jadwal', 'API\JadwalController')->except(['show']);
-Route::apiResource('kategori', 'API\KategoriController')->except(['show']);
+// Route::apiResource('kategori', 'API\KategoriController')->except(['show']);
 Route::apiResource('mapel', 'API\MapelController')->except(['show']);
 Route::apiResource('materi', 'API\MateriController')->except(['show']);
 Route::apiResource('prestasi', 'API\PrestasiController')->except(['show']);
 Route::apiResource('situs', 'API\SitusController')->except(['show']);
 Route::apiResource('user', 'API\UserController')->except(['show']);
-Route::get('profil', 'API\ProfilController@show');
-Route::patch('profil', 'API\ProfilController@update');
+// Route::get('profil', 'API\ProfilController@show');
+// Route::patch('profil', 'API\ProfilController@update');
 Route::get('alumni', 'API\SiswaController@alumni');
 
 // Route List data untuk select box
@@ -91,8 +92,8 @@ Route::get('cari/guru', 'API\GuruController@search')
 ->name('guru.cari');
 Route::get('cari/jadwal', 'API\JadwalController@search')
 ->name('jadwal.cari');
-Route::get('cari/kategori', 'API\KategoriController@search')
-->name('kategori.cari');
+// Route::get('cari/kategori', 'API\KategoriController@search')
+// ->name('kategori.cari');
 Route::get('cari/mapel', 'API\MapelController@search')
 ->name('mapel.cari');
 Route::get('cari/materi', 'API\MateriController@search')

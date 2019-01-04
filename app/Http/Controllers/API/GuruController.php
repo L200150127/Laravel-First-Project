@@ -149,6 +149,10 @@ class GuruController extends Controller
         $this->authorize('isAdmin');
         // Retrieve the validated input data...
         $validated = $request->validated();
+
+        if ($request->has('foto')) {
+            $this->deleteFile($guru);
+        }
         // Mass Assignment data request ke dalam model
         $guru->fill($validated);
         // Jika ada file dalam request maka lakukan proses upload
@@ -156,7 +160,6 @@ class GuruController extends Controller
         // terlebih dahulu kemudian menggunakan fungsi uploadFile untuk 
         // melakukan proses uploadnya
         if ($request->has('foto')) {
-            $this->deleteFile($guru);
             $uploadFoto = $this->uploadFile($request);
             $guru->foto = $uploadFoto;
         }
@@ -202,8 +205,6 @@ class GuruController extends Controller
         // Jika ada foto dalam request dan merupakan valid
         // Maka lakukan proses upload
         if ($guru->isValid()) {
-            // Ambil ukuran file
-            $size = $guru->getClientSize();
             // Nama foto yang perlu disimpan dalam database
             // adalah kombinasi nama foto asli dan timestamp
             $fotoNameStore =  $name . '_' . time() . '.' . $ext;

@@ -42,7 +42,7 @@ class KelasController extends Controller
     public function getListKelas()
     {
         // Otorisasi Hak Akses Admin
-        $this->authorize('isAdmin');
+        // $this->authorize('isAdmin');
         // Ambil semua data dalam DB
         $kelas = Kelas::select('id', 'nama')->get();
         // Kembalikan ke user dalam bentuk Collection Resource

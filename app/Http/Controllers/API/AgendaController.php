@@ -30,7 +30,7 @@ class AgendaController extends Controller
     public function index()
     {
         // Otorisasi Hak Akses Admin
-        $this->authorize('isAdmin');
+        // $this->authorize('isAdmin');
         // Ambil semua data dalam DB
         $agenda = Agenda::latest()->paginate(4);
         // Kembalikan ke user dalam bentuk Collection Resource

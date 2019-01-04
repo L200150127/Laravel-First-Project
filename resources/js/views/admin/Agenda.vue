@@ -82,7 +82,7 @@
           </ul>
 
           <div class="card-footer">
-            <pagination :data="laravelData" 
+            <pagination :data="laravelData" v-if="laravelData.data"
             @pagination-change-page="getResults" :show-disabled="true" 
             :limit="5">
               <span slot="prev-nav"><i class="fas fa-arrow-circle-left"></i></span>

@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Kategori as KategoriResource;
 
 class Artikel extends JsonResource
 {
@@ -16,20 +15,15 @@ class Artikel extends JsonResource
      */
     public function toArray($request)
     {
+        return parent::toArray($request);
+    }
+
+    public function with($request)
+    {
         return [
-            'id'           => $this->id,
-            'judul'        => $this->judul,
-            'slug'         => $this->slug,
-            'isi'          => $this->isi,
-            'gambar_cover' => $this->gambar_cover,
-            'status'       => $this->status,
-            'id_kategori'  => $this->id_kategori,
-            'id_user'      => $this->id_user,
-            'kategori'     => new KategoriResource($this->kategori),
-            'user'         => $this->user ? [ 
-                'id'   => $this->user->id, 
-                'nama' => $this->user->name
-            ] : null,
+            'links'    => [
+                'self'       => route('artikel.index'),
+            ],
         ];
     }
 }

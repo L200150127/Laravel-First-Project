@@ -128,6 +128,9 @@ class MateriController extends Controller
         if ($validated['id_mapel'] == 'null') {
             $validated['id_mapel'] = null;
         }
+        if ($request->has('file')) {
+            $this->deleteFile($materi);
+        }
         // Mass Assignment data request ke dalam model
         $materi->fill($validated);
         // Jika ada file dalam request maka lakukan proses upload
@@ -135,7 +138,6 @@ class MateriController extends Controller
         // terlebih dahulu kemudian menggunakan fungsi uploadFile untuk 
         // melakukan proses uploadnya
         if ($request->has('file')) {
-            $this->deleteFile($materi);
             $materi->path = $this->uploadFile($request);
         }
         // Jika berhasil menyimpan ke DB, kembalikan Resource 

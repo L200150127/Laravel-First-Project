@@ -22,21 +22,21 @@
 
           <!-- Tabel -->
           <div class="card-body table-responsive p-0">
-            <table class="table">
+            <table class="table table-sm table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" class="text-primary">No</th>
-                  <th scope="col">
+                  <th scope="col" class="text-primary text-center">No</th>
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 0)"
                     href="javascript:void(0)">Nama 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 1)"
                     href="javascript:void(0)">Jenis 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 2)"
                     href="javascript:void(0)">Sumber 
                     </a>
@@ -46,12 +46,12 @@
                     href="javascript:void(0)">Semester 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 4)"
                     href="javascript:void(0)">Tanggal 
                     </a>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 5)"
                     href="javascript:void(0)">Jumlah (Rp) 
                     </a>
@@ -61,14 +61,16 @@
               </thead>
               <tbody>
                 <tr v-for="(dt, index) in laravelData.data">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ dt.nama }}</td>
-                  <td>{{ dt.jenis }}</td>
-                  <td>{{ dt.sumber }}</td>
+                  <td class="tabel-cell-wide text-center">{{ index + 1 }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nama }}</td>
+                  <td class="tabel-cell-wide">{{ dt.jenis }}</td>
+                  <td class="tabel-cell-wide">{{ dt.sumber }}</td>
                   <td class="text-center">{{ dt.semester | semester }}</td>
-                  <td>{{ dt.tanggal | date_id_short }}</td>
-                  <td>{{ dt.jumlah | money }}</td>
-                  <td>
+                  <td class="tabel-cell-wide">
+                    {{ dt.tanggal | date_id_short }}
+                  </td>
+                  <td class="tabel-cell-wide">{{ dt.jumlah | money }}</td>
+                  <td class="tabel-cell-wide text-center">
                     <!-- Button Group Aksi -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
                       <!-- Tombol Edit -->
@@ -90,7 +92,7 @@
             </table>
           </div><!-- /.card-body -->
           <div class="card-footer">
-            <pagination :data="laravelData" 
+            <pagination :data="laravelData" v-if="laravelData.data"
             @pagination-change-page="getResults" :show-disabled="true" 
             :limit="5">
               <span slot="prev-nav"><i class="fas fa-arrow-circle-left"></i></span>

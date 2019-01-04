@@ -16,22 +16,22 @@ class Artikel extends FormRequest
     public function authorize()
     {
         // Otorisasi penggunaan FormRequest
-        // return auth()->check();
-        $user = Auth::user();
+        return auth()->check();
+        // $user = Auth::user();
 
-        if (strtolower($user->type) == 'admin') {
-            return true;
-        }
+        // if (strtolower($user->type) == 'admin') {
+        //     return true;
+        // }
 
-        if (Auth::check()) {
-            $artikel = ArtikelModel::find($this->input('id_user'));
-            if (!$artikel || $artikel->id_user != Auth::id()) {
-                return false;
-            }
-            return true;
-        }
+        // if (Auth::check()) {
+        //     $artikel = ArtikelModel::find($this->input('id_user'));
+        //     if (!$artikel || $artikel->id_user != Auth::id()) {
+        //         return false;
+        //     }
+        //     return true;
+        // }
 
-        return false;
+        // return false;
     }
 
     /**
@@ -41,29 +41,10 @@ class Artikel extends FormRequest
      */
     public function rules()
     {
-        // Cek Apakah HTTP Method == PUT atau PATCH
-        if ($this->method() == 'PATCH' || $this->method() == 'PUT') {
-            $slug_r = 'required|alpha_dash|min:5|max:255|unique:artikel,slug,' . $this->route('artikel')->slug;
-            if ($this->input('slug') == $this->route('artikel')->slug) {
-                return [
-                    'judul'        => 'required|string|max:255',
-                    'isi'          => 'required|string',
-                    'gambar_cover' => 'sometimes|image|max:2048',
-                    'id_kategori'  => 'nullable|integer',
-                    'id_user'      => 'nullable|integer',
-                ];
-            }
-        } else {
-            $slug_r = 'required|alpha_dash|min:5|max:255|unique:artikel,slug';
-        }
-
         return [
             'judul'        => 'required|string|max:255',
             'isi'          => 'required|string',
-            'slug'         => $slug_r,
-            'gambar_cover' => 'sometimes|image|max:2048',
-            'id_kategori'  => 'nullable|integer',
-            'id_user'      => 'nullable|integer',
+            'gambar_cover' => 'sometimes|image|max:4096',
         ];
     }
 

@@ -13,14 +13,8 @@ class Artikel extends Model
 
     // mendefinisikan nama_kolom untuk mass assignment
     protected $fillable = [
-    	'judul', 'isi', 'slug', 'gambar_cover', 'id_kategori', 'id_user',
+    	'judul', 'isi', 'slug', 'gambar_cover', 'id_user',
     ];
-
-    // mendefinisikan relasi n:1 dari model ini ke model kategori, 
-    public function kategori()
-    {
-    	return $this->belongsTo('App\Kategori', 'id_kategori');
-    }
 
     // mendefinisikan relasi n:1 dari model ini ke model user, 
     public function user()

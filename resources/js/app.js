@@ -23,8 +23,6 @@ import VeeValidate, { Validator } from 'vee-validate';
 import moment from 'moment';
 // Impor Vue Progress bar
 import VueProgressBar from 'vue-progressbar';
-// Impor Vue Select
-import vSelect from 'vue-select';
 // Impor Sweet Alert 2
 import swal from 'sweetalert2';
 // Impor v-calendar
@@ -49,6 +47,7 @@ Vue.use(VueRouter);
 // menggunakan plugin vee-validate
 Vue.use(VeeValidate);
 Validator.localize('id', id);
+Validator.extend('not_empty', value => $.trim(value) === '');
 // Inisiasi Vue Progress bar secara global
 Vue.use(VueProgressBar, {
     color: '#3490dc',
@@ -98,7 +97,6 @@ Vue.prototype.$gate = new Gate(window.user);
  */
 // Vue.component('app', require('./views/App.vue'));
 Vue.component('pagination', require('laravel-vue-pagination'));
-Vue.component('v-select', vSelect);
 
 // Membuat Global Filter
 Vue.filter('capitalize', function (value, firstOnly=false) {
@@ -118,6 +116,11 @@ Vue.filter('date_id_short', function(value) {
     if (!value) return 'Tidak Ada Tanggal'
     moment.locale('id');
     return moment(value).format('Do MMMM YYYY');
+});
+Vue.filter('date_id', function(value) {
+    if (!value) return 'Tidak Ada Tanggal'
+    moment.locale('id');
+    return moment(value).format('LLL');;
 });
 Vue.filter('gender', function (value) {
     if (!value) return ''

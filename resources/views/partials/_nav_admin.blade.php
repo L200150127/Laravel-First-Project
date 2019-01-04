@@ -5,9 +5,9 @@
     <li class="nav-item">
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
+    {{-- <li class="nav-item d-none d-sm-inline-block">
       <router-link :to="{ name:'profil' }" class="nav-link">Profil</router-link>
-    </li>
+    </li> --}}
     {{-- <li class="nav-item d-none d-sm-inline-block">
       <router-link :to="{ name:'bantuan' }" class="nav-link">
       Bantuan</router-link>
@@ -30,7 +30,7 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- Admin Dropdown Menu -->
-    <li class="nav-item dropdown" v-if="$gate.isAdmin()">
+    {{-- <li class="nav-item dropdown" v-if="$gate.isAdmin()">
       <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           <span class="fas fa-ellipsis-v"></span>
       </a>
@@ -40,19 +40,19 @@
           <i class="fas fa-user mr-2"></i>Profil
         </router-link>
         <!-- File Manajer Menu -->
-        <!-- <router-link to="/media" class="dropdown-item">
+        <router-link to="/media" class="dropdown-item">
           <i class="fas fa-archive mr-2"></i>File Manajer
-        </router-link> -->
+        </router-link>
         
-        <!-- Pengaturan Menu -->
+        Pengaturan Menu
         <router-link :to="{ name:'pengaturan' }" class="dropdown-item black">
           <i class="fas fa-cog mr-2"></i>Pengaturan
         </router-link>
         
         <!-- Bantuan Menu -->
-        {{-- <router-link :to="{ name:'bantuan' }" class="dropdown-item d-sm-none d-inline-block black">
+        <router-link :to="{ name:'bantuan' }" class="dropdown-item d-sm-none d-inline-block black">
           <i class="fas fa-question-circle mr-2"></i>Bantuan
-        </router-link> --}}
+        </router-link>
 
         <div class="dropdown-divider"></div>
 
@@ -63,10 +63,10 @@
           Keluar
         </a>
       </div>
-    </li>
+    </li> --}}
 
     <!-- Logout -->
-    <li class="nav-item d-none d-sm-inline-block" v-if="$gate.isGuru()">
+    <li class="nav-item {{-- d-none d-sm-inline-block --}}" {{-- v-if="$gate.isGuru()" --}}>
       <a class="nav-link" href="{{ route('logout') }}" 
       onclick="event.preventDefault();
       document.getElementById('logout-form').submit();">
@@ -75,7 +75,7 @@
       </a>
     </li>
     <!-- Dropdown menu Guru -->
-    <li class="nav-item dropdown d-sm-none d-inline-block" 
+    {{-- <li class="nav-item dropdown d-sm-none d-inline-block" 
     v-if="$gate.isGuru()">
       <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           <span class="fas fa-ellipsis-v"></span>
@@ -86,9 +86,9 @@
         </router-link>
         
         <!-- Bantuan Menu -->
-        {{-- <router-link :to="{ name:'bantuan' }" class="dropdown-item black">
+        <router-link :to="{ name:'bantuan' }" class="dropdown-item black">
           <i class="fas fa-question-circle mr-2"></i>Bantuan
-        </router-link> --}}
+        </router-link>
 
         <div class="dropdown-divider"></div>
         
@@ -99,7 +99,7 @@
           Keluar
         </a>
       </div>
-    </li>
+    </li> --}}
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
       @csrf

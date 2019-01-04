@@ -186,9 +186,6 @@ export default {
         }
     },
     methods: {
-        fetchData() {
-            this.read('api/guru');
-        },
         clearForm() {
             this.form = {
                 id           : '',

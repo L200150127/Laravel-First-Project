@@ -21,35 +21,35 @@
 
           <!-- Tabel -->
           <div class="card-body table-responsive p-0">
-            <table class="table">
+            <table class="table table-sm table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" class="text-primary">No</th>
-                  <th scope="col">
+                  <th scope="col" class="text-primary text-center">No</th>
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 0)"
                     href="javascript:void(0)">Kompetisi / Lomba 
                     </a>
                   </th>
-                  <th scope="col" class="text-primary">Jenis</th>
-                  <th scope="col" class="text-primary">Tingkat</th>
-                  <th scope="col">
+                  <th scope="col" class="text-primary text-center">Jenis</th>
+                  <th scope="col" class="text-primary text-center">Tingkat</th>
+                  <th scope="col" class="text-center">
                     <a @click.prevent="orderBy(laravelData.links.order, 1)"
                     href="javascript:void(0)">Tahun
                     </a>
                   </th>
-                  <th scope="col" class="text-primary">Pencapaian</th>
+                  <th scope="col" class="text-primary text-center">Pencapaian</th>
                   <th scope="col" class="text-center text-primary">Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(dt, index) in laravelData.data">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ dt.nama }}</td>
-                  <td>{{ dt.jenis }}</td>
-                  <td>{{ dt.tingkat }}</td>
-                  <td>{{ dt.tahun }}</td>
-                  <td>{{ dt.pencapaian }}</td>
-                  <td>
+                  <td class="tabel-cell-wide text-center">{{ index + 1 }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nama }}</td>
+                  <td class="tabel-cell-wide">{{ dt.jenis }}</td>
+                  <td class="tabel-cell-wide">{{ dt.tingkat }}</td>
+                  <td class="tabel-cell-wide text-center">{{ dt.tahun }}</td>
+                  <td class="tabel-cell-wide">{{ dt.pencapaian }}</td>
+                  <td class="tabel-cell-wide text-center">
                     <!-- Button Group Aksi -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
                       <!-- Tombol Edit -->
@@ -71,7 +71,7 @@
             </table>
           </div><!-- /.card-body -->
           <div class="card-footer">
-            <pagination :data="laravelData" 
+            <pagination :data="laravelData" v-if="laravelData.data"
             @pagination-change-page="getResults" 
             :limit="3" :show-disabled="true">
               <span slot="prev-nav">
