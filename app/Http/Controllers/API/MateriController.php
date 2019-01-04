@@ -122,6 +122,12 @@ class MateriController extends Controller
     {
         // Retrieve the validated input data...
         $validated = $request->validated();
+        if ($validated['id_kelas'] == 'null') {
+            $validated['id_kelas'] = null;
+        }
+        if ($validated['id_mapel'] == 'null') {
+            $validated['id_mapel'] = null;
+        }
         // Mass Assignment data request ke dalam model
         $materi->fill($validated);
         // Jika ada file dalam request maka lakukan proses upload
@@ -167,12 +173,12 @@ class MateriController extends Controller
         // Get Filename with extension
         $nameWithExt = $file->getClientOriginalName();
         // Get Filename without extension
-        $name = pathinfo($nameWithExt, PATHINFO_FILENAME);
+        $name = snake_case(pathinfo($nameWithExt, PATHINFO_FILENAME));
         // Get File extension
-        $ext = $file->getClientOriginalExtension();
+        $ext = $file->extension();
         // Jika ada file dalam request dan merupakan valid
         // Maka lakukan proses upload
-        if ($request->file('file')->isValid()) {
+        if ($file->isValid()) {
             // Nama file yang perlu disimpan dalam database
             // adalah kombinasi nama file asli dan timestamp
             $fileNameStore =  $name . '_' . time() . '.' . $ext;

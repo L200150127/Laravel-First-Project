@@ -268,6 +268,7 @@ export default {
             ],
             kolom: '',
             mode : '',
+            query: '',
         }
     },
     methods: {
@@ -285,20 +286,6 @@ export default {
         clearForm() {
             this.form.reset();
             this.$validator.reset();
-        },
-        getResults(page = 1) {
-            if (page == this.laravelData.meta.current_page) {
-                return;
-            }
-            this.$Progress.start();
-            let kolom = (this.kolom) ? '?kolom=' + this.kolom : '';
-            let mode = (this.mode) ? '&mode=' + this.mode : '';
-            let halaman = (this.kolom) ? '&page=' + page : '?page=' + page;
-            axios.get(this.laravelData.meta.path + kolom + mode + halaman)
-                .then( response => {
-                    this.laravelData = response.data;
-                    this.$Progress.finish();
-                });
         },
         performSubmit() {
             if (this.editMode) {

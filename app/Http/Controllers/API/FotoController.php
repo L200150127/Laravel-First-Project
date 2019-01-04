@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Foto;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Requests\Foto as FotoRequest;
 use App\Http\Controllers\Controller;
@@ -43,29 +44,24 @@ class FotoController extends Controller
      */
     public function store(FotoRequest $request)
     {
-        // Menggabungkan array data FotoRequest dengan data id_user
+        // Ambil data yang sudah divalidasi
         $validated = $request->validated();
-
         // Buat Objek Eloquent Model
         $foto = new Foto;
-
-        // Mass Assignment Save Data Ke Database
-        if ($foto->fill($validated)->save()) {
-            // Kembalikan Resource dalam bentuk API Resorces
+        // Mass Assignment data request ke dalam model
+        $foto->fill($validated);
+        // Jika ada file dalam request maka lakukan proses upload
+        // dengan menggunakan fungsi uploadFile
+        if ($request->has('foto')) {
+            $uploadFoto = $this->uploadFile($request);
+            $foto->path = $uploadFoto[0];
+            $foto->ukuran = $uploadFoto[1];
+        }
+        // Jika berhasil menyimpan ke DB, kembalikan Resource 
+        // dalam bentuk API Resorces
+        if ($foto->save()) {
             return new FotoResource($foto);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Foto  $foto
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Foto $foto)
-    {
-        // Kembalikan Resource dalam bentuk API Resorces
-        return new FotoResource($foto);
     }
 
     /**
@@ -74,16 +70,20 @@ class FotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function search(FotoRequest $request)
+    public function search(Request $request)
     {
+        // Validasi terhadap query
+        $this->validate($request, ['q' => 'nullable|string|max:50']);
+
         if ($search = $request->q) {
-            $foto = Foto::where(function($query) use ($search) {
+            $foto = Foto::where(function($query) 
+                use ($search) {
                 $query->where('nama', 'LIKE', "%$search%")
                 ->orWhere('deskripsi', 'LIKE', "%$search%");
             })->paginate(10);
             return new FotoCollection($foto);
         } else {
-            return new FotoCollection(Foto::latest()->paginate(10));
+            return $this->index();
         }
     }
 
@@ -98,15 +98,21 @@ class FotoController extends Controller
     {
         // Retrieve the validated input data...
         $validated = $request->validated();
-
-        // Mass Assignment Update Data
-        if ($foto->update($validated)) {
-            // Tampilkan pesan flash
-            $request->session()->flash('success', 'Berhasil mengupdate foto.');
-            // Redirect dengan pesan flash
-            // return redirect()->with('success', 'Berhasil Membuat foto.');
-
-            // Kembalikan Resource dalam bentuk API Resorces
+        // Mass Assignment data request ke dalam model
+        $foto->fill($validated);
+        // Jika ada file dalam request maka lakukan proses upload
+        // dengan menggunakan fungsi deleteFile untuk menhapus file lama 
+        // terlebih dahulu kemudian menggunakan fungsi uploadFile untuk 
+        // melakukan proses uploadnya
+        if ($request->has('foto')) {
+            $this->deleteFile($foto);
+            $uploadFoto = $this->uploadFile($request);
+            $foto->path = $uploadFoto[0];
+            $foto->ukuran = $uploadFoto[1];
+        }
+        // Jika berhasil menyimpan ke DB, kembalikan Resource 
+        // dalam bentuk API Resorces
+        if ($foto->save()) {
             return new FotoResource($foto);
         }
     }
@@ -119,9 +125,61 @@ class FotoController extends Controller
      */
     public function destroy(Foto $foto)
     {
+        // Hapus File yang berafiliasi dengan data foto
+        $this->deleteFile($foto);
+        // Hapus data foto dari DB
         if ($foto->delete()) {
             // Kembalikan Resource dalam bentuk API Resorces
             return new FotoResource($foto);
         }
+    }
+
+    /**
+     * Upload file yang ada di Request
+     * @param  FotoRequest $request
+     * @return string
+     */
+    private function uploadFile(FotoRequest $request) {
+        // Get File
+        $foto = $request->file('foto');
+        // Get Filename with extension
+        $nameWithExt = $foto->getClientOriginalName();
+        // Get Filename without extension
+        $name = snake_case(pathinfo($nameWithExt, PATHINFO_FILENAME));
+        // Get File extension
+        $ext = $foto->extension();
+        // Jika ada foto dalam request dan merupakan valid
+        // Maka lakukan proses upload
+        if ($foto->isValid()) {
+            // Ambil ukuran file
+            $size = $foto->getClientSize();
+            // Nama foto yang perlu disimpan dalam database
+            // adalah kombinasi nama foto asli dan timestamp
+            $fotoNameStore =  $name . '_' . time() . '.' . $ext;
+            // Upload and Save foto to folder public/foto
+            $path = Storage::putFileAs('public/foto', $foto, $fotoNameStore);
+            // kembalikan nama foto beserta ekstensinya
+            return [ $fotoNameStore, $size ];
+        }
+        // kembalikan false jika tidak ada foto dalam request atau jika proses 
+        // upload gagal
+        return false;
+    }
+
+    /**
+     * Hapus foto yang berafiliasi dengan data DB
+     * @param  Foto $foto
+     * @return boolean
+     */
+    private function deleteFile(Foto $foto)
+    {
+        // Cek Apakah foto ada
+        $exist = Storage::exists('public/foto/' . $foto->path);
+        if (isset($foto->path) && $exist) {
+            if (Storage::delete('public/foto/' . $foto->path)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

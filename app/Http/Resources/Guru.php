@@ -16,4 +16,13 @@ class Guru extends JsonResource
     {
         return parent::toArray($request);
     }
+
+    public function with($request)
+    {
+        return [
+            'links'    => [
+                'self'       => route('guru.index'),
+            ],
+        ];
+    }
 }

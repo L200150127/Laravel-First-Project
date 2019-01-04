@@ -3,61 +3,105 @@
     <div class="row mt-2 justify-content-center" v-if="$gate.isAdmin()">
       <div class="col-md-12">
 
-        <!-- Card Tabel User -->
+        <!-- Card Tabel Alumni -->
         <div class="card border border-primary">
+
           <div class="card-header bg-primary">
-            <h3 class="card-title">Daftar Alumni</h3>
+            <h3 class="card-title m-0 p-2">
+              Daftar Alumni
+              <span class="badge badge-info" v-if="laravelData.meta">
+                {{ laravelData.meta.total }} Alumni
+              </span>
+            </h3>
 
           </div>
 
           <!-- Tabel -->
           <div class="card-body table-responsive p-0">
-            <table class="table table-sm">
+            <table class="table table-sm table-bordered" style="table-layout: fixed">
               <thead>
                 <tr>
-                  <th scope="col" class="text-center">No</th>
-                  <th scope="col" class="text-center">Foto</th>
-                  <th scope="col" class="text-center">NIS</th>
-                  <th scope="col" class="text-center">NISN</th>
-                  <th scope="col" class="text-center">Nama</th>
-                  <th scope="col" class="text-center">JK</th>
-                  <th scope="col" class="text-center">Alamat</th>
-                  <th scope="col" class="text-center">Tanggal Lahir</th>
-                  <th scope="col" class="text-center">Tahun Masuk</th>
-                  <th scope="col" class="text-center">Tahun Lulus</th>
-                  <th scope="col" class="text-center">Aksi</th>
+                  <th scope="col" class="text-primary" 
+                  style="width: 60px">No</th>
+                  <th scope="col" class="text-center text-primary" 
+                  style="width: 60px">Foto</th>
+                  <th scope="col" class="text-center" style="width: 170px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 0)"
+                    href="javascript:void(0)">NIS
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 100px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 1)"
+                    href="javascript:void(0)">NISN
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 250px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 2)"
+                    href="javascript:void(0)">Nama
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 120px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 4)"
+                    href="javascript:void(0)">Jenis Kelamin
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 300px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 3)"
+                    href="javascript:void(0)">Alamat 
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 140px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 5)"
+                    href="javascript:void(0)">Tanggal Lahir 
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 100px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 6)"
+                    href="javascript:void(0)">Tahun Masuk 
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center" style="width: 100px">
+                    <a @click.prevent="orderBy(laravelData.links.orderAlumni, 7)"
+                    href="javascript:void(0)">Tahun Lulus 
+                    </a>
+                  </th>
+                  <th scope="col" class="text-center text-primary" 
+                  style="width: 120px">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="kosong">
-                  <td colspan="6" class="text-center">Tidak Ada Data</td>
-                </tr>
-                <tr v-for="(user, index) in users.data">
+                <tr v-for="(dt, index) in laravelData.data">
                   <td class="tabel-cell-wide">{{ index + 1 }}</td>
                   <td class="tabel-cell-wide">
-                    <img alt="foto-guru" 
-                    width="50" height="50" src="/img/avatar-so.png" 
+                    <img alt="foto-guru" v-if="dt.foto"
+                    width="50" height="50" :src="'/storage/foto/siswa/' + dt.foto" style="object-fit: cover;border-radius: 50%;">
+                    <img alt="foto-guru" v-else
+                    width="50" height="50" src="/svg/user.svg" 
                     style="object-fit: cover;border-radius: 50%;">
                   </td>
-                  <td class="tabel-cell-wide">123456789123456789</td>
-                  <td class="tabel-cell-wide">123456789</td>
-                  <td class="tabel-cell-wide">Nabila Solga Bilkis Sutarno Putri</td>
-                  <td class="tabel-cell-wide">L</td>
-                  <td class="tabel-cell-wide">Perum Menjangan Indah Sambon Banyudono Boyolali</td>
-                  <td class="tabel-cell-wide">12/09/1995</td>
-                  <td class="tabel-cell-wide">2015</td>
-                  <td class="tabel-cell-wide">2021</td>
-                  <td class="tabel-cell-wide">
-                    <!-- Tombol Pilihan -->
+                  <td class="tabel-cell-wide">{{ dt.nis }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nisn }}</td>
+                  <td class="tabel-cell-wide">{{ dt.nama }}</td>
+                  <td class="tabel-cell-wide text-center">
+                    {{ dt.jenis_kelamin | gender }}
+                  </td>
+                  <td class="tabel-cell-wide">{{ dt.alamat }}</td>
+                  <td class="tabel-cell-wide text-center">
+                    {{ dt.tgl_lahir | date_id_short }}
+                  </td>
+                  <td class="tabel-cell-wide text-center">
+                    {{ dt.tahun_masuk }}
+                  </td>
+                  <td class="tabel-cell-wide text-center">
+                    {{ dt.tahun_lulus }}
+                  </td>
+                  <td class="tabel-cell-wide text-center">
+                    <!-- Button Group Aksi -->
                     <div class="btn-group btn-group-sm d-flex ml-auto">
-                      <a href="javascript:void(0)" class="btn btn-outline-info flex-fill"
-                      title="Edit" data-toggle="modal" data-target="#crudModal"
-                      @click="editDataModal(user)">
-                        <i class="fas fa-user-edit"></i>
-                      </a>
-                      <a href="javascript:void(0)" 
+                      <!-- Tombol Hapus -->
+                      <a href="javascript:void(0)" title="Hapus" 
                       class="btn btn-outline-danger flex-fill"
-                      title="Hapus" @click="deleteUser(user.id, user.name)">
+                      @click="destroy(laravelData.links.self, dt.id, dt.nama)">
                         <i class="fas fa-trash-alt"></i>
                       </a>
                     </div>
@@ -65,291 +109,58 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+          </div><!-- /.card-body -->
+          <div class="card-footer">
+            <pagination :data="laravelData" 
+            @pagination-change-page="getResults" :show-disabled="true" 
+            :limit="5">
+              <span slot="prev-nav"><i class="fas fa-arrow-circle-left"></i></span>
+              <span slot="next-nav"><i class="fas fa-arrow-circle-right"></i></span>
+            </pagination>
+          </div><!-- /.card-footer -->
+        </div><!-- /.card -->
       </div>
     </div>
     
     <not-found v-else></not-found>
-
-    <!-- Modal -->
-    <div class="modal fade" id="crudModal" tabindex="-1" role="dialog" 
-    aria-labelledby="TambahDataLabel" aria-hidden="true" 
-    v-if="$gate.isAdmin()">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 v-if="editMode" class="modal-title" id="TambahDataLabel">
-              Edit User</h5>
-            <h5 v-else class="modal-title" id="TambahDataLabel">
-              Tambah User</h5>
-            <button type="button" class="close" data-dismiss="modal" 
-            aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <!-- Form -->
-          <form @submit.prevent="editMode? updateUser():createUser()" 
-          @keydown="form.onKeydown($event)" enctype="multipart/form-data">
-            <div class="modal-body">
-
-              <!-- Input Nama User-->
-              <div class="form-group">
-                <input v-model.trim="form.name" type="text" name="name" id="name" 
-                class="form-control" placeholder="Username" required
-                :class="{ 'is-invalid': form.errors.has('name') }">
-                <has-error :form="form" field="name"></has-error>
-              </div>
-
-              <!-- Input Email User-->
-              <div class="form-group">
-                <input v-model="form.email" type="email" name="email" 
-                id="email" :class="{ 'is-invalid': form.errors.has('email') }"
-                class="form-control" placeholder="Alamat Email" required>
-                <has-error :form="form" field="email"></has-error>
-              </div>
-
-              <!-- Input Bio User-->
-              <div class="form-group">
-                <textarea v-model.trim="form.bio" name="bio" id="bio" 
-                class="form-control" placeholder="Bio Singkat (Opsional)"
-                :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
-                <has-error :form="form" field="bio"></has-error>
-              </div>
-
-              <!-- Input File Foto User-->
-              <div class="form-group">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input"
-                  name="photo" id="photo" lang="id" @change="updateFoto">
-                  <label class="custom-file-label" for="photo">
-                    {{ photoLabel }}
-                  </label>
-                  <has-error :form="form" field="photo"></has-error>
-                </div>
-              </div>
-
-              <!-- Input Hak Akses-->
-              <div class="form-group">
-                <select name="type" v-model.trim="form.type" class="custom-select" 
-                :class="{ 'is-invalid': form.errors.has('type') }" id="type">
-                  <option value="" disabled="">Pilih Hak Akses</option>
-                  <option value="admin">Administrator</option>
-                  <option value="guru">Siswa</option>
-                </select>
-                <has-error :form="form" field="type"></has-error>
-              </div>
-
-              <!-- Input Password-->
-              <div class="form-group">
-                <input v-model="form.password" type="password" name="password" 
-                class="form-control" id="password" :required="!editMode"
-                :class="{ 'is-invalid': form.errors.has('password') }"
-                :placeholder="editMode ? 'Password (Kosongkan jika tidak ingin diubah)' : 'Password'"> 
-                <has-error :form="form" field="password"></has-error>
-              </div>
-              <div class="form-group">
-                <input v-model="form.password_confirmation" type="password" 
-                name="password_confirmation" id="password-confirm" 
-                :placeholder="editMode ? 'Ulangi Password (Kosongkan jika tidak ingin diubah)' : 'Password'" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('password') }" 
-                :required="!editMode">
-                <has-error :form="form" field="password_confirmation">
-                </has-error>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" 
-              data-dismiss="modal">Batal</button>
-              <button v-if="editMode" type="submit" class="btn btn-success">
-                Simpan Perubahan</button>
-              <button v-else type="submit" class="btn btn-success">
-                Tambahkan</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
     
 
   </div>
 </template>
 
 <script>
+// Import Mixins
+import crudMixinsAxios from '../../mixins/crudMixinsAxios';
+
 export default {
     data() {
         return {
-            editMode: true,
-            kosong: false,
-            users: {},
-            form: new Form({
-                id: '',
-                name: '',
-                email: '',
-                password: '',
-                type: '',
-                bio: '',
-                photo: ''
-            }),
-            photoLabel: 'Pilih Foto (Opsional)',
-            page: 'Manajemen User'
+            laravelData: {},
+            sortField  : [
+                ['nis', 'asc'],
+                ['nisn', 'asc'],
+                ['nama', 'asc'],
+                ['alamat', 'asc'],
+                ['jenis_kelamin', 'asc'],
+                ['tgl_lahir', 'asc'],
+                ['tahun_masuk', 'asc'],
+                ['tahun_lulus', 'asc'],
+            ],
+            query     : '',
+            kolom     : '',
+            mode      : '',
+            jumlahData: '',
         }
     },
-    methods: {
-        tambahDataModal() {
-            this.editMode = false;
-            this.photoLabel = 'Pilih Foto (Opsional)'
-            this.form.reset();
-            $('#crudModal').modal('show');
-        },
-        editDataModal(user) {
-            this.editMode = true;
-            this.form.reset();
-            if (user.photo) {
-                this.photoLabel = user.photo;
-            } else {
-                this.photoLabel = 'Pilih Foto (Opsional)';
-            }
-            this.form.fill(user);
-            $('#crudModal').modal('show');
-        },
-        createUser() {
-            this.$Progress.start();
-            // Submit form melualu PUT request
-            this.form.post('api/user').then(({ data }) => {
-                this.$emit('afterCrud');
-                $('#crudModal').modal('hide');
-                toast({
-                    type: 'success',
-                    title: 'User baru berhasil ditambahkan'
-                });
-                this.$Progress.finish();
-                this.form.reset();
-            }).catch((error) => {
-                this.$Progress.fail();
-                toast({
-                    type: 'error',
-                    title: 'User baru gagal ditambahkan'
-                });
-                console.log(error);
-            });
-        },
-        loadUser() {
-            if (this.$gate.isAdmin()) {
-                this.$Progress.start();
-                axios.get('api/user').then(({ data }) => {
-                    this.users = data;
-                    this.isKosong();
-                    this.$Progress.finish();
-                }).catch((error) => {
-                    this.$Progress.fail();
-                    console.log(error);
-                });
-            }
-        },
-        updateUser(id) {
-            this.$Progress.start();
-            // Submit form melualu POST request
-            this.form.put('api/user/'+this.form.id).then(({ data }) => {
-                this.$emit('afterCrud');
-                $('#crudModal').modal('hide');
-                toast({
-                    type: 'success',
-                    title: 'Data user berhasil diupdate'
-                });
-                this.$Progress.finish();
-                this.form.reset();
-                this.photoLabel = 'Pilih Foto (Opsional)';
-            }).catch((error) => {
-                this.$Progress.fail();
-                toast({
-                    type: 'error',
-                    title: 'Data user gagal diupdate'
-                });
-                console.log(error);
-            });
-        },
-        updateFoto(e) {
-            let file = e.target.files[0];
-            this.photoLabel = file.name;
-            let reader = new FileReader();
-            if (file['size'] < 2111775) {
-                reader.onloadend = (file) => {
-                  this.form.photo = reader.result;
-                }
-                reader.readAsDataURL(file);
-            } else {
-                swal({
-                    type: 'error',
-                    title: 'Ups...',
-                    text: 'Ukuran gambar terlalu besar, ukuran gambar harus dibawah 2MB',
-                });
-            }
-        },
-        deleteUser(id, nama) {
-            swal({
-                title: 'Apakah anda yakin?',
-                text: 'Anda akan menghapus user yang bernama ' + 
-                       Vue.filter('capitalize')(nama),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#007bff',
-                cancelButtonColor: '#dc3545',
-                cancelButtonText: 'Batal',
-                confirmButtonText: 'Ya',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    // Jika ya, kirim request ke server
-                    this.form.delete('api/user/' + id)
-                    .then(() => {
-                        swal(
-                            'Berhasil!',
-                            'User berhasil dihapus.',
-                            'success'
-                        )
-                        this.$emit('afterCrud');
-                    }).catch(() => {
-                        swal(
-                            'Gagal',
-                            'Gagal menghapus user',
-                            'error'
-                        );
-                    });
-                }
-            })
-        },
-        isKosong() {
-            if (_.size(this.users) >= 1) {
-                return this.kosong = false;
-            }
-            return this.kosong = true;
-        },
-    },
+    mixins: [ crudMixinsAxios ]
+    ,
     created() {
         Fire.$on('searching', () => {
             let query = this.$parent.search;
-            if (!query) { return false }
-            this.$Progress.start();
-            axios.get('api/cari/user?q=' + query)
-            .then(( data ) => {
-              this.users = data.data;
-              this.$Progress.finish();
-            })
-            .catch(() => {
-                swal(
-                    'Gagal',
-                    'Gagal menghapus melakukan pencarian',
-                    'error'
-                );
-            });
+            this.search('api/cari/alumni', query);
         });
-        this.loadUser();
-        this.$on('afterCrud', () => this.loadUser());
+        this.read('api/alumni');
+        this.$on('afterCrud', () => this.read(this.laravelData.links.self));
     }
 };
 

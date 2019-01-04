@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\StringNull;
 
 class Materi extends FormRequest
 {
@@ -24,11 +25,19 @@ class Materi extends FormRequest
      */
     public function rules()
     {
+        // Cek Apakah HTTP Method == PUT atau PATCH
+        if ($this->method() == 'PATCH' || $this->method() == 'PUT') {
+            $file_rules = 'sometimes|file|max:4096';
+            $id_rules = 'nullable|string';
+        } else {
+            $file_rules = 'required|file|max:4096';
+            $id_rules = 'nullable|integer';
+        }
         return [
             'nama'     => 'required|string|max:100',
-            'file'     => 'required|file|max:4096',
-            'id_kelas' => 'nullable|integer',
-            'id_mapel' => 'nullable|integer|max:20',
+            'file'     => $file_rules,
+            'id_kelas' => $id_rules,
+            'id_mapel' => $id_rules,
         ];
     }
 }

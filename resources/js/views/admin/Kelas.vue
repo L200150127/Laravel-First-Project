@@ -279,6 +279,7 @@ export default {
             ],
             kolom: '',
             mode : '',
+            query: '',
         }
     },
     methods: {
@@ -315,20 +316,6 @@ export default {
             this.form.reset();
             this.$validator.reset();
             this.guruPengampu = [];
-        },
-        getResults(page = 1) {
-            if (page == this.mapelData.meta.current_page) {
-                return;
-            }
-            this.$Progress.start();
-            let kolom = (this.kolom) ? '?kolom=' + this.kolom : '';
-            let mode = (this.mode) ? '&mode=' + this.mode : '';
-            let halaman = (this.kolom) ? '&page=' + page : '?page=' + page;
-            axios.get(this.mapelData.meta.path + kolom + mode + halaman)
-                .then( response => {
-                    this.mapelData = response.data;
-                    this.$Progress.finish();
-                });
         },
         performSubmit() {
             if (this.editMode) {
@@ -379,10 +366,12 @@ export default {
                 });
         },
         search(urlApi, query) {
+            this.query = query;
             this.$Progress.start();
             axios.get(`${urlApi}?q=${query}`)
-                .then(response => {
+                .then( response => {
                     this.mapelData = response.data;
+                    this.$parent.search = '';
                     this.$Progress.finish();
                 })
                 .catch(() => {
@@ -392,6 +381,30 @@ export default {
                         'error'
                     );
                 });
+        },
+        getResults(page = 1) {
+            if (page == this.mapelData.meta.current_page) {
+                return;
+            }
+            this.$Progress.start();
+            let kolom = (this.kolom) ? '?kolom=' + this.kolom : '';
+            let mode = (this.mode) ? '&mode=' + this.mode : '';
+            let query = (this.query) ? '?q=' + this.query : '';
+            let halaman = (this.kolom || this.query) ? '&page=' + page : '?page=' + page;
+            if (this.query) {
+                axios.get(this.mapelData.meta.path + query + halaman)
+                    .then( response => {
+                        this.mapelData = response.data;
+                        this.$Progress.finish();
+                    });
+            } else {
+                axios.get(this.mapelData.meta.path + kolom + mode + halaman)
+                    .then( response => {
+                        this.mapelData = response.data;
+                        this.$Progress.finish();
+                    });
+            }
+            
         },
         startConcurent() {
             this.$Progress.start();
@@ -403,7 +416,7 @@ export default {
                 .then(axios.spread((kelas, mapel, guru) => {
                     this.mapelData = mapel.data;
                     this.kelasData = kelas.data;
-                    this.guruData = guru.data;
+                    this.guruData  = guru.data;
                     this.$Progress.finish();
                 }))
                 .catch( err => {

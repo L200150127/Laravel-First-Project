@@ -255,6 +255,7 @@ export default {
             ],
             kolom: '',
             mode : '',
+            query: '',
         }
     },
     methods: {
@@ -280,13 +281,23 @@ export default {
             this.$Progress.start();
             let kolom = (this.kolom) ? '?kolom=' + this.kolom : '';
             let mode = (this.mode) ? '&mode=' + this.mode : '';
-            let halaman = (this.kolom) ? '&page=' + page : '?page=' + page;
-            axios.get(this.laravelData.meta.path + kolom + mode + halaman)
-                .then( response => {
-                    this.laravelData = response.data;
-                    this.tahunDepan = this.getYear(response.data.links.tahunDepan);
-                    this.$Progress.finish();
-                });
+            let query = (this.query) ? '?q=' + this.query : '';
+            let halaman = (this.kolom || this.query) ? '&page=' + page : '?page=' + page;
+            if (this.query) {
+                axios.get(this.laravelData.meta.path + query + halaman)
+                    .then( response => {
+                        this.laravelData = response.data;
+                        this.tahunDepan = this.getYear(response.data.links.tahunDepan);
+                        this.$Progress.finish();
+                    });
+            } else {
+                axios.get(this.laravelData.meta.path + kolom + mode + halaman)
+                    .then( response => {
+                        this.laravelData = response.data;
+                        this.tahunDepan = this.getYear(response.data.links.tahunDepan);
+                        this.$Progress.finish();
+                    });
+            }
         },
         performSubmit() {
             if (this.editMode) {

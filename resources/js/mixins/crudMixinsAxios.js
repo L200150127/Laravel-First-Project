@@ -24,13 +24,27 @@ export default {
             }
             
         },
+        getFormData(object, update=false) {
+            const formData = new FormData();
+            Object.keys(object).forEach( key => formData.append(key, object[key]));
+            if (update) {
+                formData.append('_method', 'PATCH');
+            }
+            return formData;
+        },
         create(urlApi) {
             let apiSuffix = urlApi.split('/').last();
             this.$validator.validateAll()
                 .then(() => {
                     if (!this.errors.any()) {
+                        let formData = this.getFormData(this.form);
+                        const config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }
                         this.$Progress.start();
-                        this.form.post(urlApi)
+                        axios.post(urlApi, formData, config)
                             .then( response => {
                                 this.$emit('afterCrud');
                                 toast({
@@ -40,8 +54,7 @@ export default {
                                 $('#crudModal').modal('hide');
                                 this.$Progress.finish();
                                 this.$nextTick(() => {
-                                    this.$validator.reset();
-                                    this.form.reset();
+                                    this.clearForm();
                                 })
                             })
                             .catch(err => {
@@ -73,9 +86,16 @@ export default {
             let apiSuffix = urlApi.split('/').last();
             this.$validator.validateAll()
                 .then(() => { 
+
                     if (!this.errors.any()) {
+                        let formData = this.getFormData(this.form, true);
+                        const config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                        }
                         this.$Progress.start();
-                        this.form.patch(`${urlApi}/${this.form.id}`)
+                        axios.post(`${urlApi}/${this.form.id}`, formData, config)
                             .then( response => {
                                 this.$emit('afterCrud');
                                 toast({
@@ -85,10 +105,9 @@ export default {
                                 $('#crudModal').modal('hide');
                                 this.$Progress.finish();
                                 this.$nextTick(() => {
-                                    this.$validator.reset();
-                                    this.form.reset();
+                                    this.clearForm();
                                 })
-                                // this.errors.clear()
+                                this.fileLabel = 'Pilih File';
                             })
                             .catch(err => {
                                 this.$Progress.fail();
@@ -99,6 +118,9 @@ export default {
                                 console.log(err);
                             });
                     }
+                })
+                .catch( err => {
+                    console.log(err);
                 });
             
         },
@@ -123,7 +145,7 @@ export default {
                 .then(result => {
                     if (result.value) {
                         this.$Progress.start();
-                        this.form.delete(`${urlApi}/${id}`)
+                        axios.delete(`${urlApi}/${id}`)
                             .then( response => {
                                 swal(
                                     'Berhasil!',
@@ -185,6 +207,22 @@ export default {
                         'error'
                     );
                 });
+        },
+        updateFile(e) {
+            let file = e.target.files[0];
+            this.fileLabel = _.truncate( file.name, {
+                'length': 50,
+            });
+            let reader = new FileReader();
+            if (file['size'] < 4096000) {
+                this.form.file = file;
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Ups...',
+                    text: 'Ukuran file harus dibawah 4MB',
+                });
+            }
         },
     }
 }

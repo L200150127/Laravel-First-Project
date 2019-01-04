@@ -52,7 +52,7 @@
 
         <!-- Artikel menu -->
         <li class="nav-item has-treeview">
-          <router-link :to="{ name:'artikel' }" class="nav-link">
+          <router-link :to="{ name:'artikel' }" class="nav-link" exact>
             <i class="nav-icon fas fa-newspaper" 
             style="color: turquoise"></i>
             <p>
@@ -61,7 +61,7 @@
           </router-link>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <router-link :to="{ name:'tambahartikel' }" class="nav-link">
+              <router-link :to="{ name:'tambahartikel' }" class="nav-link" exact>
                 <i class="fas fa-pencil-alt nav-icon"></i>
                 <p>Buat Artikel</p>
               </router-link>
@@ -72,14 +72,14 @@
         @can('isAdmin')
         <!-- Data Guru menu -->
         <li class="nav-item has-treeview">
-          <router-link :to="{ name:'guru' }" class="nav-link">
+          <router-link :to="{ name:'guru' }" class="nav-link" exact>
           <i class=" nav-icon fas fa-chalkboard-teacher" 
           style="color: navajowhite"></i>
           <p>Guru <i class="right fas fa-angle-left"></i></p>
           </router-link>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <router-link :to="{ name:'tambahguru' }" class="nav-link">
+              <router-link :to="{ name:'tambahguru' }" class="nav-link" exact>
                 <i class="fas fa-pencil-alt nav-icon"></i>
                 <p>Tambah Guru</p>
               </router-link>

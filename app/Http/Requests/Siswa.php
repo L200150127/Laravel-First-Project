@@ -14,10 +14,7 @@ class Siswa extends FormRequest
     public function authorize()
     {
         // Otorisasi penggunaan FormRequest
-        // return auth()->check();
-        if (Gate::allows('isAdmin')) {
-            return true;
-        }
+        return auth()->check();
     }
     /**
      * Get the validation rules that apply to the request.
@@ -36,13 +33,9 @@ class Siswa extends FormRequest
                     'nama'          => 'required|string|max:50',
                     'alamat'        => 'required|string|max:255',
                     'jenis_kelamin' => 'required|in:L,P',
-                    // tgl_lahir adalah tanggal sesudah 1 Januari 2000
-                    // dan sebelum 4 tahun kebelakang
-                    // Jika tahun Ini 2018 maka, tgl_lahir valid adalah
-                    // 1 Januari 2000 - Akhir Desember 2013
                     'tgl_lahir'     => 'required|date' .
                     '|before:"this year -4 year"|after:"1 January 2000"',
-                    'foto'          => 'sometimes|image|max:2048',
+                    'foto'          => 'sometimes|image|max:4096',
                     'status'        => 'nullable|between:0,2',
                     'tahun_masuk'   => 'nullable|numeric|date_format:"Y"' . 
                     '|after:tgl_lahir|before:"next year"',
@@ -61,18 +54,27 @@ class Siswa extends FormRequest
             'nama'          => 'required|string|max:50',
             'alamat'        => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:L,P',
-            // tgl_lahir adalah tanggal sesudah 1 Januari 2000
-            // dan sebelum 4 tahun kebelakang
-            // Jika tahun Ini 2018 maka, tgl_lahir valid adalah
-            // 1 Januari 2000 - Akhir Desember 2013
             'tgl_lahir'     => 'required|date' .
             '|before:"this year -4 year"|after:"1 January 2000"',
-            'foto'          => 'sometimes|image|max:2048',
+            'foto'          => 'sometimes|image|max:4096',
             'status'        => 'nullable|between:0,2',
             'tahun_masuk'   => 'nullable|numeric|date_format:"Y"' . 
             '|after:tgl_lahir|before:"next year"',
             'tahun_lulus'   => 'nullable|numeric|date_format:"Y"' . 
             '|after:tgl_lahir|before:"next year"',
         ]; 
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'tgl_lahir.before' => 'isian tanggal lahir belum mencukupi untuk menjadi siswa, minimal 5 tahun',
+            'tgl_lahir.after' => 'isian tanggal lahir harus setelah tanggal 1 Januari 2000',
+        ];
     }
 }

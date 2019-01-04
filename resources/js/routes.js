@@ -69,9 +69,9 @@ export default [{
         }
     },
     {
-        path: '/tambah-artikel',
+        path: '/artikel-tambah',
         name: 'tambahartikel',
-        component: require('./views/admin/Tambah-Edit-Artikel.vue'),
+        component: require('./views/admin/Tambah-Artikel.vue'),
         meta: {
             title: 'Artikel Baru',
             metaTags: [{
@@ -86,9 +86,9 @@ export default [{
         }
     },
     {
-        path: '/edit-artikel/:id',
+        path: '/artikel-ubah/:id',
         name: 'editartikel',
-        component: require('./views/admin/Tambah-Edit-Artikel.vue'),
+        component: require('./views/admin/Edit-Artikel.vue'),
         meta: {
             title: 'Edit Artikel',
             metaTags: [{
@@ -120,9 +120,9 @@ export default [{
         }
     },
     {
-        path: '/tambah-guru',
+        path: '/guru-tambah',
         name: 'tambahguru',
-        component: require('./views/admin/Tambah-Edit-Guru.vue'),
+        component: require('./views/admin/Tambah-Guru.vue'),
         meta: {
             title: 'Tambah Data Guru',
             metaTags: [{
@@ -137,9 +137,9 @@ export default [{
         }
     },
     {
-        path: '/edit-guru/:id',
+        path: '/guru-ubah/:id',
         name: 'editguru',
-        component: require('./views/admin/Tambah-Edit-Guru.vue'),
+        component: require('./views/admin/Edit-Guru.vue'),
         meta: {
             title: 'Edit Data Guru',
             metaTags: [{
@@ -171,9 +171,9 @@ export default [{
         }
     },
     {
-        path: '/tambah-siswa',
+        path: '/siswa-tambah',
         name: 'tambahsiswa',
-        component: require('./views/admin/Tambah-Edit-Siswa.vue'),
+        component: require('./views/admin/Tambah-Siswa.vue'),
         meta: {
             title: 'Tambah Data Siswa',
             metaTags: [{
@@ -188,9 +188,9 @@ export default [{
         }
     },
     {
-        path: '/edit-siswa/:id',
+        path: '/siswa-ubah/:id',
         name: 'editsiswa',
-        component: require('./views/admin/Tambah-Edit-Siswa.vue'),
+        component: require('./views/admin/Edit-Siswa.vue'),
         meta: {
             title: 'Edit Data Siswa',
             metaTags: [{

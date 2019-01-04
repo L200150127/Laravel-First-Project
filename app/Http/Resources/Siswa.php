@@ -16,4 +16,15 @@ class Siswa extends JsonResource
     {
         return parent::toArray($request);
     }
+
+    public function with($request)
+    {
+        return [
+            'links'    => [
+                'self'       => route('siswa.index'),
+                'batasUmur'  => strtotime('this year -4 year') * 1000,
+                'tahunDepan' => strtotime('next year') * 1000,
+            ],
+        ];
+    }
 }

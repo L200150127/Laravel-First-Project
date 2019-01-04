@@ -22,7 +22,6 @@ class FotoCollection extends ResourceCollection
         return [
             'links'    => [
                 'self' => route('foto.index'),
-                'order' => route('foto.urut'),
                 'cari' => route('foto.cari'),
             ],
         ];

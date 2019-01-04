@@ -24,10 +24,16 @@ class Foto extends FormRequest
      */
     public function rules()
     {
+        // Cek Apakah HTTP Method == PUT atau PATCH
+        if ($this->method() == 'PATCH' || $this->method() == 'PUT') {
+            $foto_rules = 'sometimes|image|mimes:jpeg,jpg,png|max:4096';
+        } else {
+            $foto_rules = 'required|image|mimes:jpeg,jpg,png|max:4096';
+        }
         return [
             'nama'      => 'required|string|max:100',
             'deskripsi' => 'required|string|max:255',
-            'foto'      => 'required|image|max:2048',
+            'foto'      => $foto_rules,
         ];
     }
 }

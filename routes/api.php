@@ -57,12 +57,12 @@ Route::get('semua-agenda', 'API\AgendaController@getAll');
 
 
 // Route Pengurutan Data
+Route::get('urut/alumni', 'API\SiswaController@orderByAlumni')
+->name('alumni.urut');
 Route::get('urut/artikel', 'API\ArtikelController@orderBy')
 ->name('artikel.urut');
 Route::get('urut/dana', 'API\DanaController@orderBy')
 ->name('dana.urut');
-Route::get('urut/foto', 'API\FotoController@orderBy')
-->name('foto.urut');
 Route::get('urut/guru', 'API\GuruController@orderBy')
 ->name('guru.urut');
 Route::get('urut/jadwal', 'API\JadwalController@orderBy')

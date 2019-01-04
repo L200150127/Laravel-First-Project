@@ -35113,6 +35113,40 @@ readers do not read off random characters that represent icons */
   }
 }
 
+.album-container {
+  -webkit-transition: -webkit-box-shadow .5s;
+  transition: -webkit-box-shadow .5s;
+  transition: box-shadow .5s;
+  transition: box-shadow .5s, -webkit-box-shadow .5s;
+  overflow: hidden;
+}
+
+img.card-img-top {
+  -webkit-transition: transform .5s, filter .5s;
+  /* Safari */
+  /* Mozilla */
+  -webkit-transition: -webkit-transform .5s, -webkit-filter .5s;
+  transition: -webkit-transform .5s, -webkit-filter .5s;
+  transition: transform .5s, filter .5s;
+  transition: transform .5s, filter .5s, -webkit-transform .5s, -webkit-filter .5s;
+  -webkit-filter: grayscale(50%);
+  -moz-filter: grayscale(50%);
+  filter: grayscale(50%);
+}
+
+.album-container:hover {
+  -webkit-box-shadow: 0 2px 4px 0 #ef7800, 2px 4px 8px 0 #ef7800;
+          box-shadow: 0 2px 4px 0 #ef7800, 2px 4px 8px 0 #ef7800;
+}
+
+.album-container:hover img {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
+
 .table-fixed {
   table-layout: fixed;
 }
@@ -35382,7 +35416,6 @@ textarea#deskripsi {
 
 table.table > tbody > tr > td.tabel-cell-wide {
   vertical-align: middle;
-  text-align: center;
 }
 
 div#menu-accordion-bantuan > .card {

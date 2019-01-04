@@ -21,11 +21,12 @@ class SiswaCollection extends ResourceCollection
     {
         return [
             'links'    => [
-                'self'       => route('siswa.index'),
-                'order'      => route('siswa.urut'),
-                'cari'       => route('siswa.cari'),
-                'batasUmur'  => strtotime('this year -4 year') * 1000,
-                'tahunDepan' => strtotime('next year') * 1000,
+                'self'        => route('siswa.index'),
+                'order'       => route('siswa.urut'),
+                'orderAlumni' => route('alumni.urut'),
+                'cari'        => route('siswa.cari'),
+                'batasUmur'   => strtotime('this year -4 year') * 1000,
+                'tahunDepan'  => strtotime('next year') * 1000,
             ],
         ];
     }

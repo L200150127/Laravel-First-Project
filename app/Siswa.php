@@ -33,11 +33,6 @@ class Siswa extends Model
     //     'nis' => 'string',
     // ];
 
-    // Accessor nama Siswa
-    public function getJenisKelaminAttribute($jenis_kelamin)
-    {
-        return (strtoupper($jenis_kelamin) == 'L') ? 'Laki-laki' : 'Perempuan';
-    }
 
     // Mutator nama Siswa
     public function setNamaAttribute($nama)

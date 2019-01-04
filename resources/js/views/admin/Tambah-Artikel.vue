@@ -4,95 +4,31 @@
         <div class="col-md-8 order-md-1 order-2">
           <div class="card border border-primary">
             <div class="card-header bg-primary">
-              <h3 class="card-title mb-0">Tambah Guru</h3>
+              <h3 class="card-title mb-0">Buat Artikel</h3>
             </div>
             <div class="card-body">
               <!-- Form -->
               <form @submit.prevent="editMode? updateUser():createUser()" 
               @keydown="form.onKeydown($event)" enctype="multipart/form-data" 
-              id="form-guru">
-
-                <!-- Input Nama -->
+              id="form-artikel">
+                <!-- Input Nama User-->
                 <div class="form-group">
-                  <label for="judul">NIP</label>
-                  <input v-model.trim="form.name" type="text" name="nip" 
-                  id="nip" class="form-control" maxlength="20" 
-                  placeholder="Masukan NIP Guru"
+                  <label for="judul">Judul Artikel</label>
+                  <input v-model.trim="form.name" type="text" name="judul" 
+                  id="judul" class="form-control" 
+                  placeholder="Masukan Judul Artikel" required
                   :class="{ 'is-invalid': form.errors.has('name') }">
-                  <has-error :form="form" field="nip"></has-error>
+                  <has-error :form="form" field="name"></has-error>
                 </div>
 
-                <!-- Input Nama -->
+                <!-- Input Bio User-->
                 <div class="form-group">
-                  <label for="judul">Nama</label>
-                  <input v-model.trim="form.name" type="text" name="nama" 
-                  id="nama" class="form-control" 
-                  placeholder="Masukan Nama Guru" required
-                  :class="{ 'is-invalid': form.errors.has('name') }">
-                  <has-error :form="form" field="nama"></has-error>
-                </div>
-
-                <!-- Checkbox jenis kelamin -->
-                <label for="jkl">Jenis Kelamin</label>
-                <div class="form-group">
-                  <div class="custom-control custom-radio 
-                  custom-control-inline">
-                    <input type="radio" id="jkl" name="jenis_kelamin" 
-                    class="custom-control-input">
-                    <label class="custom-control-label" for="jkl">
-                    Laki-laki</label>
-                  </div>
-                  <div class="custom-control custom-radio 
-                  custom-control-inline">
-                    <input type="radio" id="jkp" name="jenis_kelamin" 
-                    class="custom-control-input">
-                    <label class="custom-control-label" for="jkp">
-                    Perempuan</label>
-                  </div>
-                </div>
-
-                <!-- Alamat-->
-                <div class="form-group">
-                  <label for="alamat">Alamat</label>
-                  <textarea v-model.trim="form.bio" name="alamat" id="alamat" 
-                  class="form-control" placeholder="Masukan Alamat Guru"
-                  :class="{ 'is-invalid': form.errors.has('alamat') }">
-                  </textarea>
-                  <has-error :form="form" field="alamat"></has-error>
-                </div>
-
-                <!-- Input Tanggal Lahir -->
-                <div class="form-group">
-                  <label for="tanggal-lahir">Tanggal Lahir</label>
-                  <input v-model.trim="form.tgl_lahir" type="date" 
-                  name="tgl_lahir" id="tgl_lahir" class="form-control" 
-                  placeholder="Masukan Tanggal Lahir Guru" required
-                  :class="{ 'is-invalid': form.errors.has('tgl_lahir') }">
-                  <has-error :form="form" field="tgl_lahir"></has-error>
-                </div>
-
-                <!-- Input Nama -->
-                <div class="form-group">
-                  <label for="jabatan">Jabatan</label>
-                  <input v-model.trim="form.jabatan" type="text" name="jabatan"
-                  id="jabatan" class="form-control" 
-                  placeholder="Masukan Jabatan Guru" required
-                  :class="{ 'is-invalid': form.errors.has('jabatan') }">
-                  <has-error :form="form" field="jabatan"></has-error>
-                </div>
-
-                <!-- Input File Foto Guru -->
-                <div class="form-group">
-                  <label for="gambar-cover">Foto Guru (Opsional)</label>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input"
-                    name="gambar_cover" id="gambar-cover" lang="id" 
-                    @change="updateFoto" form="form-guru">
-                    <label class="custom-file-label" for="gambar-cover">
-                      {{ photoLabel }}
-                    </label>
-                    <has-error :form="form" field="photo"></has-error>
-                  </div>
+                  <label for="isi">Judul Artikel</label>
+                  <textarea v-model.trim="form.bio" name="isi" id="isi" 
+                  class="form-control" placeholder="Masukan Isi Artikel"
+                  :class="{ 'is-invalid': form.errors.has('bio') }" 
+                  rows="10"></textarea>
+                  <has-error :form="form" field="bio"></has-error>
                 </div>
 
                 <div class="row justify-content-between my-2">
@@ -102,7 +38,7 @@
                     </button>
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 order-sm-1 my-1 my-sm-0">
-                    <router-link :to="{ name:'guru' }" 
+                    <router-link :to="{ name:'artikel' }" 
                     class="btn btn-primary btn-block">
                       <span>Kembali</span>
                     </router-link>
@@ -117,14 +53,50 @@
         <div class="col-md-4 order-md-2 order-1">
           <div class="card border border-primary">
             <div class="card-header bg-primary">
-              <h3 class="card-title mb-0">Foto Guru</h3>
+              <h3 class="card-title mb-0">Informasi Artikel</h3>
             </div>
             <div class="card-body">
-              <img
-              class="img-fluid img-thumbnail my-center-img" 
-              :src="form.foto? form.foto : './svg/user.svg'" 
-              alt="foto-guru" height="250" width="250" 
-              style="objectFit:cover;borderRadius:50%;transition:all 1s">
+
+              <!-- Input Kategori Artikel -->
+              <div class="form-group">
+                <label for="kategori">Kategori Artikel</label>
+                <select name="kategori" v-model.trim="form.type" 
+                class="custom-select" id="kategori" form="form-artikel"
+                :class="{ 'is-invalid': form.errors.has('type') }" required="">
+                  <option value="" disabled="">Pilih Kategori</option>
+                  <option value="1">Umum</option>
+                  <option value="2">Pendidikan</option>
+                  <option value="3">Kegiatan</option>
+                  <option value="4">Berita</option>
+                  <option value="5">Prestasi</option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
+              </div>
+
+              <!-- Input File Foto Artikel -->
+              <div class="form-group">
+                <label for="gambar-cover">Sampul Artikel (Opsional)</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input"
+                  name="gambar_cover" id="gambar-cover" lang="id" 
+                  @change="updateFoto" form="form-artikel">
+                  <label class="custom-file-label" for="gambar-cover">
+                    {{ photoLabel }}
+                  </label>
+                  <has-error :form="form" field="photo"></has-error>
+                </div>
+              </div>
+
+              <!-- Checkbox status artikel -->
+              <div class="form-group">
+                <div class="custom-control custom-checkbox text-center">
+                  <input type="checkbox" class="custom-control-input" 
+                  id="customCheck1" form="form-artikel">
+                  <label class="custom-control-label" for="customCheck1">
+                    Saya sedang membuat draft
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -148,7 +120,7 @@ export default {
                 bio: '',
                 photo: ''
             }),
-            photoLabel: 'Pilih Foto',
+            photoLabel: 'Pilih Gambar',
             page: 'Manajemen User'
         }
     },

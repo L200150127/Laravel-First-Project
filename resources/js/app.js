@@ -124,6 +124,10 @@ Vue.filter('gender', function (value) {
     value = value.toString().toLowerCase();
     return (value == 'l') ? 'Laki-laki' : 'Perempuan';
 });
+Vue.filter('status', function (value) {
+    value = value.toString().toLowerCase();
+    return (value == 1) ? 'Alumni' : 'Aktif';
+});
 Vue.filter('semester', function (value) {
     if (!value) return ''
     value = value.toString().toLowerCase();

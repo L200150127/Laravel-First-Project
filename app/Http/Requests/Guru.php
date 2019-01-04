@@ -14,10 +14,7 @@ class Guru extends FormRequest
     public function authorize()
     {
         // Otorisasi penggunaan FormRequest
-        // return auth()->check();
-        if (Gate::allows('isAdmin')) {
-            return true;
-        }
+        return auth()->check();
     }
 
     /**
@@ -29,7 +26,7 @@ class Guru extends FormRequest
     {
         // Cek Apakah HTTP Method == PUT atau PATCH
         if ($this->method() == 'PATCH' || $this->method() == 'PUT') {
-            $nip_r = 'required|numeric|digits_between:10,12|unique:guru,nip,' .
+            $nip_r = 'nullable|numeric|digits_between:10,20|unique:guru,nip,' .
                 $this->route('guru')->id;
             if ($this->input('nip') == $this->guru->nip) {
                 return [
@@ -39,11 +36,11 @@ class Guru extends FormRequest
                     'jabatan'       => 'required|string|max:50',
                     'tgl_lahir'     => 'required|date' .
                     '|before:"this year -17 year"',
-                    'foto'          => 'sometimes|image|max:2048',
+                    'foto'          => 'sometimes|image|max:4096',
                 ];
             }
         } else {
-            $nip_r = 'required|numeric|digits_between:10,12|unique:guru,nip';
+            $nip_r = 'nullable|numeric|digits_between:10,20|unique:guru,nip';
         }
 
         return [
@@ -54,7 +51,19 @@ class Guru extends FormRequest
             'jabatan'       => 'required|string|max:50',
             'tgl_lahir'     => 'required|date' .
             '|before:"this year -17 year"',
-            'foto'          => 'sometimes|image|max:2048',
+            'foto'          => 'sometimes|image|max:4096',
         ];  
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'tgl_lahir.before' => 'isian tanggal lahir belum mencukupi untuk menjadi guru, minimal 18 tahun',
+        ];
     }
 }
