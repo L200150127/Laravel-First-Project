@@ -19,13 +19,13 @@
           {{-- .carousel-inner --}}
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img class="d-block w-100" src="{{ asset('storage/default/banner/3.jpg') }}" alt="First slide" style="width: 100%; height: 450px;">
+              <img class="d-block w-100 img-fluid" src="{{ asset('storage/default/banner/3.jpg') }}" alt="First slide" style="width: 100%; height: 450px;">
               <div class="carousel-caption d-none d-md-block">
                 <p></p>
               </div>
             </div>
 
-            <div class="carousel-item">
+            <div class="carousel-item img-fluid">
               <img class="d-block w-100" src="{{ asset('storage/default/banner/8.jpg') }}" alt="Second slide" style=" width: 100%; height: 450px;">        
               <div class="carousel-caption d-none d-md-block">
                 <p></p>
@@ -33,14 +33,14 @@
             </div>
 
             <div class="carousel-item">
-              <img class="d-block w-100" src="{{ asset('storage/default/banner/1.jpg') }}" alt="Third slide" style=" width: 100%; height: 450px;">        
+              <img class="d-block w-100 img-fluid" src="{{ asset('storage/default/banner/1.jpg') }}" alt="Third slide" style=" width: 100%; height: 450px;">        
               <div class="carousel-caption d-none d-md-block">
                 <p></p>
               </div>
             </div>
 
             <div class="carousel-item">
-              <img class="d-block w-100" src="{{ asset('storage/default/banner/2.jpg') }}" alt="Third slide" style=" width: 100%; height: 450px;">        
+              <img class="d-block w-100 img-fluid" src="{{ asset('storage/default/banner/2.jpg') }}" alt="Third slide" style=" width: 100%; height: 450px;">        
               <div class="carousel-caption d-none d-md-block">
                 <p></p>
               </div>
