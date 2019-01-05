@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Resources\Json\Resource;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
             'edit' => 'ubah',
             'show' => 'detail',
         ]);
+        setlocale(LC_ALL, 'id_ID');
+        Carbon::setLocale('id_ID');
     }
 
     /**

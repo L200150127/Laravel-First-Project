@@ -52,7 +52,7 @@
         <div class="lay1 w-100" >
         <img src="{{ asset('img/logopuc.png') }}" ><span>Characteristic Islamic School</span>
         </div>
-        <input class="form-control-lg" type="search" name="cari" placeholder="Pencarian...." id="cari" style="width:306px;"></div>
+        
       </div>
     </div>
   </section>{{-- /#jumbotron-a --}}
@@ -64,16 +64,11 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span>
       </button>
-        
-      <div>
-        <input class="form-control-sm" type="search" name="cari" 
-        placeholder="Cari..." id="cari2">
-      </div>
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/">
               HOME
             </a>
           </li>
@@ -85,20 +80,19 @@
             </a>
             
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Visi & Misi</a>
-              <a class="dropdown-item" href="#">
-                Janji Muhammadiyah</a>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="/visi-misi">Visi & Misi</a>
+              <a class="dropdown-item" href="/janji-muhammadiyah">
+                Janji Pelajar Muhammadiyah</a>
+              <a class="dropdown-item" href="/struktur">
                 Struktur Organisasi</a>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="/izin-operasional">
                 Izin Operasonal</a>
-              <a class="dropdown-item" href="#">Dana</a>
-              <a class="dropdown-item mb-2" href="#">Lokasi</a>
+              <a class="dropdown-item" href="/dana-bantuan">Dana</a>
             </div>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">ARTIKEL</a>
+            <a class="nav-link" href="{{ route('blog.semua') }}">ARTIKEL</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -107,37 +101,37 @@
             
             <div class="dropdown-menu" 
             aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Data Guru</a>
-              <a class="dropdown-item" href="#">Data Siswa</a>
-              <a class="dropdown-item mb-2" href="#">Data Alumni</a>
+              <a class="dropdown-item" href="/data-guru">Data Guru</a>
+              <a class="dropdown-item" href="/data-siswa">Data Siswa</a>
+              <a class="dropdown-item mb-2" href="/data-alumni">Data Alumni</a>
             </div>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">JADWAL</a>
+            <a class="nav-link " href="javascript:void(0)" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">JADWAL</a>
             
             <div class="dropdown-menu" 
             aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Kelas 1</a>
-              <a class="dropdown-item" href="#">Kelas 2</a>
-              <a class="dropdown-item" href="#">Kelas 3</a>
-              <a class="dropdown-item" href="#">Kelas 4</a>
-              <a class="dropdown-item" href="#">Kelas 5</a>
-              <a class="dropdown-item mb-2" href="#">Kelas 6</a>
+              <a class="dropdown-item" href="/jadwal-kelas/1">Kelas 1</a>
+              <a class="dropdown-item" href="/jadwal-kelas/2">Kelas 2</a>
+              <a class="dropdown-item" href="/jadwal-kelas/3">Kelas 3</a>
+              <a class="dropdown-item" href="/jadwal-kelas/4">Kelas 4</a>
+              <a class="dropdown-item" href="/jadwal-kelas/5">Kelas 5</a>
+              <a class="dropdown-item mb-2" href="/jadwal-kelas/6">Kelas 6</a>
 
             </div>
           </li>
             
           <li class="nav-item">
-              <a class="nav-link " href="#" >MATERI</a>
+              <a class="nav-link " href="/unduh-materi" >MATERI</a>
           </li>
 
           <li class="nav-item">
-              <a class="nav-link " href="#">GALERI</a>
+              <a class="nav-link " href="/album-foto">GALERI</a>
           </li>
 
           <li class="nav-item">
-              <a class="nav-link after-none" href="#">KONTAK</a>
+              <a class="nav-link after-none" href="/kontak">KONTAK</a>
           </li>
         </ul>
       </div>

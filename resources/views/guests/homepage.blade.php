@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ asset('css/styles-footer.css') }}">
     <!-- Custom styles 2 for this template -->
     <link rel="stylesheet" href="{{ asset('css/styles-isi.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">   
 @endsection
 
@@ -40,14 +39,14 @@
           <div class="row" id="isi-profil-sekolah">
             <div class="col-lg-5" id="col-img-profil">
               <div>
-                <img alt="profil-image" src="{{ asset('img/traffic.jpg') }}">
+                <img alt="profil-image" src="{{ asset('storage/default/banner/3.jpg') }}">
               </div>
             </div>
             <div class="col-lg-7" id="col-text-profil">
               <div>
                 <h3>MIM Pucangan</h3>
                 <p class="text-justify">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores autem quo sint alias consectetur deserunt praesentium iusto ad quis, reprehenderit, corporis. Recusandae, libero eius voluptates.
+                  MI Muhammadiyah Pucangan yang beralamat di Gunung RT 01 / XI Desa Pucangangan Kecamatan Kartasura, Kabupaten Sukoharjo didirikan pada...
                 </p>
               </div>
             </div>
@@ -55,8 +54,10 @@
           {{-- .row.mt-3 --}}
           <div class="row mt-3" id="Button-profil">
             <div class="col" style="margin:0px;">
-              <button class="btn btn-info btn-profil" type="button">Selengkapnya...</button>
-            </div>
+              <a href="/visi-misi" class="btn btn-info btn-profil">
+                Selengkapnya
+              </a>
+              </div>
           </div>{{-- .row.mt-3 --}}
           
           {{-- Artikel-artikel --}}{{-- .row.mt-5 --}}
@@ -73,95 +74,95 @@
             {{-- .col-sm-12.col-md-12.col-lg-6.col-xl-6 --}}
             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" 
             id="col-artikel1">
+            @foreach ($artikelTerbaru as $art)
               <div>
-                <img alt="cover-artikel" src="{{ asset('img/benches.jpg') }}">
-                <h4 class="mt-1">Judul Artikel</h4>
+                @if ($art->gambar_cover)
+                  <img alt="cover-artikel" 
+                  src="{{ asset('storage/foto/artikel/' . $art->gambar_cover) }}">
+                @else
+                  <img alt="cover-artikel" 
+                  src="/storage/default/images/cover_default.png">
+                @endif
+                <h4 class="mt-1">
+                  <a href="{{ route('blog.single', $art->slug) }}" style="text-decoration: none;" class="text-black">{{ $art->judul }}</a>
+                </h4>
                 <span>
                   <i class="fas fa-calendar"></i>
-                  <small class="text-muted">21/05/2018</small>
+                  <small class="text-muted">
+                    {{ 
+                      $art->created_at->formatLocalized('%A, %d %B %Y %H:%I') 
+                    }}
+                  </small>
                 </span>
-                <p class="text-justify mt-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum cumque iure placeat reprehenderit labore obcaecati, esse nobis id, veritatis nesciunt saepe velit dolore a fugit...<br></p>
+                <p class="text-justify mt-1">
+                  {{ substr(strip_tags($art->isi), 0, 200) }}
+                  {{ strlen(strip_tags($art->isi)) > 200 ? "..." : "" }}<br>
+                </p>
               </div>
+            @endforeach
+              
             </div>{{-- /.col-sm-12.col-md-12.col-lg-6.col-xl-6 --}}
 
             {{-- Kolom artikel kanan --}}
             {{-- .col-sm-12.col-md-12.col-lg-6.col-xl-6 --}}
             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" 
             id="col-artikel2">
-              <hr id="hr-hide">
-              <div class="row" id="row-artikel1">
-                <div class="col-6 col-lg-5">
-                  <div id="1div-img-artikel2">
-                    <img alt="cover-artikel" 
-                    src="{{ asset('img/rocks.jpg') }}">
+              @foreach ($artikelBaru as $arb)
+                <hr id="hr-hide">
+                <div class="row" id="row-artikel1">
+                  <div class="col-6 col-lg-5">
+                    <div id="1div-img-artikel2">
+                      @if ($arb->gambar_cover)
+                        <img alt="cover-artikel" 
+                        src="{{ asset('storage/foto/artikel/' . $arb->gambar_cover) }}">
+                      @else
+                        <img alt="cover-artikel" 
+                        src="/storage/default/images/cover_default.png">
+                      @endif
+                      
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-7">
+                    <div id="1div-text-artikel2">
+                      <h6>
+                        <a href="{{ route('blog.single', $arb->slug) }}" style="text-decoration: none;" class="text-black">{{ $arb->judul }}</a>
+                      </h6>
+                      <span style="font-size: 80%">
+                        <i class="fas fa-calendar"></i>
+                        <small class="text-muted">
+                          {{ 
+                            $arb->created_at->formatLocalized('%A, %d %B %Y %H:%I') 
+                          }}
+                        </small>
+                      </span>
+                      <p style="font-size: 80%">
+                        {{ substr(strip_tags($arb->isi), 0, 50) }}
+                        {{ strlen(strip_tags($arb->isi)) > 50 ? "..." : "" }}<br>
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div class="col-6 col-lg-7">
-                  <div id="1div-text-artikel2">
-                    <h6>Heading</h6>
-                    <span style="font-size: 80%">
-                      <i class="fas fa-calendar"></i>
-                      <small class="text-muted">21/05/2018</small>
-                    </span>
-                    <p style="font-size: 80%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, dolorem...</p>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="row" id="row-artikel2">
-                <div class="col-6 col-lg-5">
-                  <div id="2div-img-artikel2">
-                    <img alt="cover-artikel" 
-                    src="{{ asset('img/bridge.jpg') }}">
-                  </div>
-                </div>
-                <div class="col-6 col-lg-7">
-                  <div id="2div-text-artikel2">
-                    <h6>Heading</h6>
-                    <span style="font-size: 80%">
-                      <i class="fas fa-calendar"></i>
-                      <small class="text-muted">21/05/2018</small>
-                    </span>
-                    <p style="font-size: 80%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, aliquid...</p>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="row" id="row-artikel3">
-                <div class="col-6 col-lg-5">
-                  <div id="2div-img-artikel2">
-                    <img alt="cover-artikel" 
-                    src="{{ asset('img/rails.jpg') }}">
-                  </div>
-                </div>
-                <div class="col-6 col-lg-7">
-                  <div id="2div-text-artikel2">
-                    <h6>Heading</h6>
-                    <span style="font-size: 80%">
-                      <i class="fas fa-calendar"></i>
-                      <small class="text-muted">21/05/2018</small>
-                    </span>
-                    <p style="font-size: 80%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, magnam...</p>
-                  </div>
-                </div>
-              </div>
+              @endforeach
+              
             </div>{{-- /.col-sm-12.col-md-12.col-lg-6.col-xl-6 --}}
           </div>{{-- /.row --}}
           
           {{-- .row --}}
           <div class="row" id="Button-artikel">
-            <div class="col"><button class="btn btn-info btn-profil" 
-              type="button">Selengkapnya...</button></div>
+            <div class="col">
+              <a href="{{ route('blog.semua') }}" 
+              class="btn btn-info btn-profil">Selengkapnya...</a>
+            </div>
           </div>{{-- /.row --}}
 
           {{-- Galeri Foto --}}{{-- .row.mt-5 --}}
           <div class="row mt-5" id="galeri">
             <div class="col-10 col-lg-10 col-xl-10">
-              <h2 class="jdl">GALERI&nbsp;</h2>
+              <h2 class="jdl">GALERI </h2>
             </div>
             <div class="col-2 col-lg-2 col-xl-2">
               <div>
-                <a href="#">
+                <a href="/album-foto">
                   <i class="fa fa-image tada animated infinite"></i>
                 </a>
               </div>
@@ -177,42 +178,23 @@
               data-ride="carousel">
                 <div class="carousel-inner w-100" role="listbox">
 
+                  
                   <div class="carousel-item row no-gutters active">
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_1.jpg') }}">
-                    </div>
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_2.jpg') }}">
-                    </div>
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_3.jpg') }}">
-                    </div>
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_4.jpg') }}">
-                    </div>
+                    @foreach ($fotoTerbaru as $ft)
+                      <div class="col-3 float-left">
+                        <img alt="thumbnail-galeri-foto" class="img-fluid" 
+                        src="{{ asset('storage/foto/' . $ft->path) }}">
+                      </div>
+                    @endforeach
                   </div>
 
                   <div class="carousel-item row no-gutters">
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_1.jpg') }}">
-                    </div>
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_2.jpg') }}">
-                    </div>
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_3.jpg') }}">
-                    </div>
-                    <div class="col-3 float-left">
-                      <img alt="thumbnail-galeri-foto" class="img-fluid" 
-                      src="{{ asset('img/slider_4.jpg') }}">
-                    </div>
+                    @foreach ($fotoTerbaru as $ft)
+                      <div class="col-3 float-left">
+                        <img alt="thumbnail-galeri-foto" class="img-fluid" 
+                        src="{{ asset('storage/foto/' . $ft->path) }}">
+                      </div>
+                    @endforeach
                   </div>
 
                 </div>
@@ -250,6 +232,5 @@
     <!-- core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ asset('js/app.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
 @endpush

@@ -37,10 +37,10 @@
       <div class="col-md-3 col-lg-3 footer-about">
         {{-- .links --}}
         <p class="links">
-          <a href="#">Home</a><strong> · </strong>
-          <a href="#">Profil</a><strong> · </strong>
-          <a href="#">Artikel</a><strong> · </strong>
-          <a href="#">Galeri</a><strong></strong>
+          <a href="/">Home</a><strong> · </strong>
+          <a href="/visi-misi">Profil</a><strong> · </strong>
+          <a href="{{ route('blog.semua') }}">Artikel</a><strong> · </strong>
+          <a href="/album-foto">Galeri</a><strong></strong>
         </p>{{-- /.links --}}
 
         {{-- .social-links.social-icons --}}

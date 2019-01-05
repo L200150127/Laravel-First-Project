@@ -10,7 +10,19 @@
 
       {{-- isi agenda event --}}
       <div class="card-body">
-
+        {{-- isi agenda event --}}
+        <ul class="list-group list-group-flush" style="overflow: auto">
+          @foreach ($agendaBulanIni as $agenda)
+            <li class="list-group-item text-primary">
+              {{ $agenda->nama }} <br>
+              <small class="text-muted">
+                {{
+                  Carbon\Carbon::parse($agenda->tgl_mulai)->formatLocalized('%A, %d %B %Y')
+                }}
+              </small> 
+            </li>
+          @endforeach
+        </ul>{{--  penutup isi agenda event --}}
       </div>{{--  penutup isi agenda event --}}
     </div>
   </div>

@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     {{-- document additional info meta tag --}}
-    <meta name="description" content="@yield('deskripsiMeta', 'Dokumen')">
-    <meta name="author" content="Lyon">
+    <meta name="description" content="Web MIM Pucangan">
 
     {{-- HTML5 Edge compatibility meta tag --}}
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -27,13 +26,14 @@
     {{-- dns prefetch fonts --}}
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     {{-- Compiled Stylesheet --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/user.css') }}">
     {{-- Local / Scoped stylesheet --}}
     @yield('stylesheet')
   </head>
   <body class="@yield('bodyClass', 'root')">
   {{-- konten --}}
     @yield("content")
+    <script src="{{ asset('js/user.js') }}" type="text/javascript" ></script>
   {{-- akhir dari main --}}
   @stack('scripts')
   </body>

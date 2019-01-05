@@ -13,46 +13,50 @@
       {{-- .card-body --}}
       <div class="card-body">
         <div id="file">
-          <div class="row" style="margin:0px -15px 30px -15px;">
-            <div class="col-3 col-sm-2 col-md-3 col-lg-3">
-              <img src="{{ asset('img/fileunduh.png') }}" class="file-unduh">
-            </div>
-            
-            <div class="col-9 col-sm-10 col-md-9 col-lg-9">
-              <div>
-                <span>
-                  <i class="fas fa-calendar"></i>
-                  <small class="text-muted">21/05/2018</small>
-                </span>
-                <span class="badge badge-pill badge-danger">Kelas 5</span>
-                <p class="text-danger">
-                  Bahasa Indonesia
-                  <br>
-                  <a href="#"><strong>Resep masakan sotil.docx</strong></a>
-                </p>
+          @foreach ($materi as $mt)
+            <div class="row" style="margin:0px -15px 30px -15px;">
+              <div class="col-3 col-sm-2 col-md-3 col-lg-3">
+                <img src="{{ asset('img/fileunduh.png') }}" class="file-unduh">
               </div>
-            </div>                                        
-          </div>
-          <div class="row" style="margin:0px -15px 30px -15px;">
-            <div class="col-3 col-sm-2 col-md-3 col-lg-3">
-              <img src="{{ asset('img/fileunduh.png') }}" class="file-unduh">
+              
+              <div class="col-9 col-sm-10 col-md-9 col-lg-9">
+                <div>
+                  <span>
+                    <i class="fas fa-calendar"></i>
+                    <small class="text-muted">
+                      {{ 
+                        $mt->created_at->formatLocalized('%A, %d %B %Y') 
+                      }}
+                    </small>
+                  </span>
+                  <span class="badge badge-pill badge-danger">
+                    @if ($mt->kelas->nama)
+                      {{ $mt->kelas->nama }}
+                    @else
+                      {{ 'Umum' }}
+                    @endif
+                  </span>
+                  <p class="text-danger">
+                    @if ($mt->mapel->nama)
+                      {{ $mt->mapel->nama }}
+                    @else
+                      {{ 'Umum' }}
+                    @endif
+                    
+                    <br>
+                    <a href="{{ asset('storage/materi/' . $mt->path) }}"
+                      title="{{ $mt->nama }}">
+                      <strong>
+                        {{ substr(strip_tags($mt->nama), 0, 30) }}
+                        {{ strlen(strip_tags($mt->nama)) > 30 ? "..." : "" }}
+                      </strong>
+                    </a>
+                  </p>
+                </div>
+              </div>                                        
             </div>
-            
-            <div class="col-9 col-sm-10 col-md-9 col-lg-9">
-              <div>
-                <span>
-                  <i class="fas fa-calendar"></i>
-                  <small class="text-muted">21/05/2018</small>
-                </span>
-                <span class="badge badge-pill badge-danger">Kelas 5</span>
-                <p class="text-danger">
-                  Bahasa Indonesia
-                  <br>
-                  <a href="#"><strong>Resep masakan sotil.docx</strong></a>
-                </p>
-              </div>
-            </div>                                        
-          </div>
+          @endforeach
+          
         </div>
       </div>{{-- /.card-body --}}
 

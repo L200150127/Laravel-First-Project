@@ -1,6 +1,6 @@
 body {
   background-size:cover;
-  background:url(../../assets/img/bg.png);
+  background:url(/img/bg.png);
 }
 
 
@@ -19,7 +19,7 @@ body {
 
 #bg-jumbotron {
   padding:10px;
-  background:url(../../assets/img/header1-img.png) no-repeat;
+  background:url(/img/header1-img.png) no-repeat;
   background-size:cover;
 }
 #bg-jumbotron .jumbotron .lay1{
@@ -128,7 +128,7 @@ body {
 }
 
 #nav-baw li .nav-link::after{
-  content:url(../../assets/img/iconbar.png);
+  content:url(/img/iconbar.png);
   margin: 0 0 0 8px;
 }
 #nav-baw li .after-none::after{

@@ -17,9 +17,7 @@
  */
 
 // Route Home
-Route::get('/', function () {
-    return view('guests.homepage');
-});
+Route::get('/', 'PageController@homePage');
 // Route Halaman Statik Izin Operasional
 Route::get('izin-operasional', function() {
     return view('guests.izin');
@@ -28,16 +26,25 @@ Route::get('izin-operasional', function() {
 Route::get('janji-muhammadiyah', function() {
     return view('guests.janji');
 });
-// Route Halaman Visi Misi
-Route::get('visi-misi', 'PageController@visiMisi');
+// Route Halaman Statik Kontak
+Route::get('kontak', function() {
+    return view('guests.kontak');
+});
+Route::post('kontak', 'PageController@postContact')
+->name('kontak');
+// Route Halaman Statik Visi Misi
+Route::get('visi-misi', function() {
+    return view('guests.visiMisi');
+});
 // Route Halaman Struktur Organisasi
 Route::get('struktur', 'PageController@struktur');
 // Route Halaman Materi
 Route::get('unduh-materi', 'PageController@materi');
 // Route Halaman Galeri
 Route::get('album-foto', 'PageController@albumFoto');
+
 // Route Halaman Kontak
-Route::get('kontak', 'PageController@kontak');
+Route::get('prestasi-prestasi', 'PageController@prestasi');
 // Route Halaman Dana Bantuan
 Route::get('dana-bantuan', 'PageController@dana');
 // Route Halaman Data Guru
@@ -63,9 +70,6 @@ Route::get('blog/{slug}', 'BlogController@single')
 // Route Semua Artikel Berdasarkan kategori
 Route::get('blog/kategori/{slug}', 'BlogController@showByKategori')
 ->where('slug', '[\w\d\-\_]+')->name('blog.kategori');
-// Route Pencarian Artikel
-Route::get('blog/cari/{q}', 'BlogController@search')
-->name('blog.cari');
 
 
 

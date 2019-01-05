@@ -1,0 +1,109 @@
+
+// Fonts General
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Font Jumbotron 
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash');
+// Font Footer
+@import url('https://fonts.googleapis.com/css?family=Cookie');
+// Font Judul
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Acme');
+@import url('https://fonts.googleapis.com/css?family=Averia+Serif+Libre');
+@import url('https://fonts.googleapis.com/css?family=Asul');
+
+// Variables
+@import 'variables';
+
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// FontAwesome Icon
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
+@import "~animate.css/animate.css";
+
+[v-cloak] {
+  display: none;
+}
+
+/*Mengubah Efek drop-shadow pada input control native bootstrap 4*/
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: $primary;
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(255, 120, 0, 0.2);
+}
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 0.1rem rgba(220, 53, 69, 0.25);
+}
+.page-item.pagination-page-nav.active .page-link:focus {
+  box-shadow: 0 0 0 0.1rem rgba(255, 120, 0, 0.2);
+}
+/*Menghilangkan efek drop-shadow native bootstrap 4 pada button*/
+.btn:focus, .btn:active {
+   outline: none !important;
+   box-shadow: none !important;
+}
+ul.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.text-blue {
+  color: $blue;
+}
+.text-indigo {
+  color: $indigo;
+}
+.text-purple {
+  color: $purple;
+}
+.text-pink {
+  color: $pink;
+}
+.text-red {
+  color: $red;
+}
+.text-orange {
+  color: $orange;
+}
+.text-yellow {
+  color: $yellow;
+}
+.text-green {
+  color: $green;
+}
+.text-teal {
+  color: $teal;
+}
+.text-cyan {
+  color: $cyan;
+}
+.text-primary {
+  color: $primary;
+}
+.text-secondary {
+  color: $secondary;
+}
+.text-danger {
+  color: $danger;
+}
+.text-warning {
+  color: $warning;
+}
+.text-info {
+  color: $info;
+}
+.text-light {
+  color: $light;
+}
+.text-white {
+    color: $white;
+}

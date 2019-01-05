@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Artikel;
-use App\Kategori;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -15,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $artikel = Artikel::orderBy('id_artikel', 'desc')->paginate(4);
+        $artikel = Artikel::latest()->paginate(6);
         return view('blog.index')->withArtikel($artikel);
     }
 
@@ -28,8 +27,11 @@ class BlogController extends Controller
     {
         // ambil data dari database berdasarkan slug
         $artikel = Artikel::where('slug', '=', $slug)->first();
+        $artikelTerbaru = Artikel::latest()->take(3)->get();
         // // return view dan lewatkan variabelnya
-        return view('blog.single')->withArtikel($artikel);
+        return view('blog.single')
+        ->withArtikel($artikel)
+        ->withArtikelTerbaru($artikelTerbaru);
     }
 
     /**
@@ -40,17 +42,7 @@ class BlogController extends Controller
      */
     public function search($q)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Artikel  $artikel
-     * @return \Illuminate\Http\Response
-     */
-    public function showByKategori(Kategori $kategori)
-    {
-        $artikel = Artikel::where('slug', '=', $slug)->first();
+        $artikel = Artikel::where('judul', 'LIKE', "%$q%")->paginate();
+        return view('blog.index')->withArtikel($artikel);
     }
 }
